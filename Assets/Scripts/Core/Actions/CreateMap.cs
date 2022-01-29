@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +6,7 @@ public class CreateMap : MapCreator
 {
 
     private readonly Mapper _mapper;
+    private Map _map;
 
     public CreateMap(Mapper mapper)
     {
@@ -15,15 +15,24 @@ public class CreateMap : MapCreator
 
     public Map Execute()
     {
-        var _map = new Map();
+        _map = new Map();
+        int cellCount = 0;
 
-        for (int column = 0; column < _mapper.Colums; column++)
-        {
+        for (int column = 0; column < _mapper.Colums; column++) {
+            
             var _row = new List<Cell>();
 
-            for (int row = 0; row < _mapper.Rows; row++)
-            {
-                _row.Add(new Cell());
+            for (int row = 0; row < _mapper.Rows; row++) {
+               
+                _row.Add( new Cell {
+                            Index = cellCount, 
+                            Row = row, 
+                            Column = column, 
+                            CellSize = _mapper.CellSize, 
+                            Type = 0, 
+                            Status = false 
+                });
+
             }
 
             _map.grid.Add(_row);
@@ -31,32 +40,16 @@ public class CreateMap : MapCreator
 
         return _map;
     }
-}
 
-[Serializable]
-public struct Mapper
-{
-    public int Rows;
-    public int Colums;
-    public Vector2 CellSize;
-}
-
-public class Map
-{
-    public List<List<Cell>> grid = new List<List<Cell>>();
-
-    public Map()
+    public Vector2 GetStartPosition_Player1()
     {
-
+        Vector2Int position = _mapper.Player1_StartPosition;
+        return _map.grid[position.x][position.y].GetPosition();
     }
-} 
 
-public struct Cell
-{ 
-    public int Index;
-}
-
-public interface MapCreator
-{
-    public Map Execute();
+    public Vector2 GetStartPosition_Player2()
+    {
+        Vector2Int position = _mapper.Player2_StartPosition;
+        return _map.grid[position.x][position.y].GetPosition();
+    }
 }
