@@ -26,14 +26,15 @@ public class GameInstaller : MonoBehaviour, Installer
 
     public void GenerateMap(Map map)
     {
-        for (var row = 0; row < map.grid.Count; row++)
+        for (var column = 0; column < map.grid.Count; column++)
         {
-            for (var column = 0; column < map.grid[row].Count; column++)
+            for (var row = 0; row < map.grid[column].Count; row++)
             {
-                var cellType = map.grid[row][column];
+                var cellType = map.grid[column][row];
 
                 var cell = Instantiate(groundPrefabs[0], transform);
-                cell.transform.localPosition = new Vector3(column * 1f, row * 1f, 1f);
+
+                cell.transform.localPosition = new Vector3(row * mapper.CellSize.x + column * mapper.CellSize.y, column * mapper.CellSize.y/2f - row * mapper.CellSize.y/2f, 1f);
 
             }
         }

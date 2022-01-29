@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CreateMap : MapCreator
 {
@@ -37,7 +38,7 @@ public struct Mapper
 {
     public int Rows;
     public int Colums;
-    public (float,float) CellSize;
+    public Vector2 CellSize;
 }
 
 public class Map
