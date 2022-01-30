@@ -1562,6 +1562,10 @@ MonoBehaviour:
   nickname: {fileID: 495148475}
   lobby: {fileID: 214044382}
   waitingRoom: {fileID: 691079806}
+  next: {fileID: 1110915265}
+  previous: {fileID: 1225215064}
+  animator: {fileID: 1345178973}
+  index: 0
 --- !u!1 &1450884794
 GameObject:
   m_ObjectHideFlags: 0
