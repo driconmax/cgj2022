@@ -5,6 +5,10 @@ public class CharacterRenderer
 {
     public static readonly string[] StaticDirections = { "IDLE_LVL" };
     public static readonly string[] JumpDirections = { "LEVEL_MOVE" };
+    public static readonly string[] WinDirections = { "LEVEL_WIN" };
+    public static readonly string[] LossDirections = { "LOSS_LVL" };
+
+
 
     private readonly int _sliceCountDirections = 4;
     private readonly SkeletonAnimation _animator;
@@ -22,10 +26,21 @@ public class CharacterRenderer
         _animator.AnimationName = (JumpDirections[0]);
     }
 
+    public void SetWinAnimation()
+    {
+        _animator.AnimationName = (WinDirections[0]);
+    }
+
+    public void SetLossAnimation()
+    {
+        _animator.AnimationName = (LossDirections[0]);
+    }
+
     public void SetIdleAnimation()
     {
         _animator.AnimationName = (StaticDirections[0]);
     }
+
 
     public void SetDirection(Vector2 direction)
     {
