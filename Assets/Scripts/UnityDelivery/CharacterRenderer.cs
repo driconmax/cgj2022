@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Spine.Unity;
 
 public class CharacterRenderer
 {
@@ -6,11 +7,11 @@ public class CharacterRenderer
     public static readonly string[] JumpDirections = { "jump_N", "jump_NO", "jump_O", "jump_SO", "jump_S", "jump_SE", "jump_E", "jump_NE" };
 
     private readonly int _sliceCountDirections = 4;
-    private readonly Animator _animator;
+    private readonly SkeletonAnimation _animator;
     private int _lastDirection = 0;
     private string[] _directionArray = StaticDirections;
 
-    public CharacterRenderer(Animator animator, int sliceCountDirections = 4)
+    public CharacterRenderer(SkeletonAnimation animator, int sliceCountDirections = 4)
     {
         _animator = animator;
         _sliceCountDirections = sliceCountDirections;

@@ -3,13 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
 
 public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 {
     public static string CharacterPrefabName = "Character";
 
     [SerializeField] private PhotonView _photonView = null;
-    [SerializeField] private Animator _animator = null;
+    [SerializeField] private SkeletonAnimation _animator = null;
     [SerializeField] private List<PlayerCombo> _playerCombos = null;
 
     private PlayerMovementController _moveThePlayer;
@@ -76,7 +77,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         else
         {
             var animatorClipName = (string)stream.ReceiveNext();
-           // _characterRenderer.PlayAnimation(animatorClipName);
+            _characterRenderer.PlayAnimation(animatorClipName);
         }
     }
 
@@ -104,6 +105,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
         // le digo donde instanciar
         //_scenarioController
-
+        _scenarioController.SpawnObjectRandom(value);
     }
 }
