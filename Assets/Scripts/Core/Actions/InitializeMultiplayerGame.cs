@@ -22,7 +22,6 @@ public class InitializeMultiplayerGame : GameInitializer
         var _map = _mapCreator.Execute();
         var initialPosition = _mapCreator.GetPlayerStartPosition();
 
-
         _multiplayerConector.Execute();
 
         _multiplayerConector.OnConnectToServer(() => {

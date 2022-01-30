@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MoveThePlayer : PlayerMovementController
 {
-    private CharacterView _view;
+    private ICharacterView _view;
     private Map _map;
     public Vector2Int _characaterPosition;
     CharacterRenderer _characterRenderer;
 
 
-    public MoveThePlayer(CharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer)
+    public MoveThePlayer(ICharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer)
     {
         _view = view;
         _map = map;

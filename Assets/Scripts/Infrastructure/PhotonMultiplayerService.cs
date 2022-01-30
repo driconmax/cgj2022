@@ -5,7 +5,6 @@ using System;
 
 public class PhotonMultiplayerService : MonoBehaviourPunCallbacks, MultiplayerService
 {
-
     private string roomName;
     private bool isConnecting;
     private Action OnJoinedRoomThen;

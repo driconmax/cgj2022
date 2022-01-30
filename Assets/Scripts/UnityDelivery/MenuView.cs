@@ -37,12 +37,3 @@ public class MenuView : MonoBehaviour, Menu
         play.gameObject.SetActive(true);
     }
 }
-
-public interface Menu
-{
-    void ShowLobby();
-    void HideLobby();
-    void ShowButton();
-    void ShowWaitingRoom(bool activate);
-    void SetUpButtonPlay(Action<string> EnterGame);
-}
