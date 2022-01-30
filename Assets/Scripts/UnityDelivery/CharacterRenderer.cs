@@ -3,8 +3,8 @@ using Spine.Unity;
 
 public class CharacterRenderer
 {
-    public static readonly string[] StaticDirections = { "still_N", "still_NO", "still_O", "still_SO", "still_S", "still_SE", "still_E", "still_NE" };
-    public static readonly string[] JumpDirections = { "jump_N", "jump_NO", "jump_O", "jump_SO", "jump_S", "jump_SE", "jump_E", "jump_NE" };
+    public static readonly string[] StaticDirections = { "IDLE_LVL" };
+    public static readonly string[] JumpDirections = { "LEVEL_MOVE" };
 
     private readonly int _sliceCountDirections = 4;
     private readonly SkeletonAnimation _animator;
@@ -17,6 +17,16 @@ public class CharacterRenderer
         _sliceCountDirections = sliceCountDirections;
     }
 
+    public void SetJumpAnimation()
+    { 
+        _animator.AnimationName = (JumpDirections[0]);
+    }
+
+    public void SetIdleAnimation()
+    {
+        _animator.AnimationName = (StaticDirections[0]);
+    }
+
     public void SetDirection(Vector2 direction)
     {
         if (direction.magnitude < .01f) {
@@ -26,7 +36,7 @@ public class CharacterRenderer
             _lastDirection = DirectionToIndex(direction, _sliceCountDirections);
         }
 
-        //_animator.Play(_directionArray[_lastDirection]);
+        _animator.AnimationName = (_directionArray[_lastDirection]);
     }
 
     public static int DirectionToIndex(Vector2 direction, int sliceCount)
@@ -45,11 +55,11 @@ public class CharacterRenderer
 
     public string GetAnimationName()
     {
-        return _directionArray[_lastDirection];
+        return _animator.AnimationName;
     }
 
     public void PlayAnimation(string animationClipName)
     {
-       // _animator.Play(animationClipName);
+        _animator.AnimationName = animationClipName;
     }
 }
