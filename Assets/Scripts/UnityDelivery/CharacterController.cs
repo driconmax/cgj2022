@@ -101,6 +101,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [PunRPC]
     public void RPC_PlayerCombo(int playerIndex, int value)
     {
+        if (value == 0) return;
         //spriteRenderer
 
         // le digo donde instanciar

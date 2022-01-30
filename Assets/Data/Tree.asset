@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb41dcac40d84174db114898032d427a, type: 3}
   m_Name: Tree
   m_EditorClassIdentifier: 
-  gameObject: {fileID: 0}
-  value: 0
+  gameObject: {fileID: 7272593707534263201, guid: e105ad85b4c9a494f9470e91cd0c5041, type: 3}
+  value: 1
