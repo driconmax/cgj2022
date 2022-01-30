@@ -1534,7 +1534,7 @@ MonoBehaviour:
     CellSize: {x: 0.5, y: 0.5}
     MapStartPosition: {x: -4.5, y: 0}
     PlayerStartPosition: {x: 0, y: 0}
-    EnemyStartPosition: {x: 0, y: 0}
+    EnemyStartPosition: {x: 9, y: 9}
   groundPrefabs:
   - {fileID: 7272593707534263201, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
   photonServer: {fileID: 3252725634045749178}
