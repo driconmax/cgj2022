@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _photonView: {fileID: 8571854355420767362}
   _animator: {fileID: 346495375442714513}
+  _playerCombos:
+  - {fileID: 11400000, guid: 78d7520b56d5f844c8361b6a7780e70c, type: 2}
 --- !u!114 &8571854355420767362
 MonoBehaviour:
   m_ObjectHideFlags: 0

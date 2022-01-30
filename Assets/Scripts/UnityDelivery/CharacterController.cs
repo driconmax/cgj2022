@@ -9,12 +9,13 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
     [SerializeField] private PhotonView _photonView = null;
     [SerializeField] private Animator _animator = null;
+    [SerializeField] private List<PlayerCombo> _playerCombos = null;
 
     private PlayerMovementController _moveThePlayer;
     private Map _map;
     private Vector2Int _characterPosition;
 
-    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer);
+    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos);
     private CharacterRenderer _characterRenderer;
 
     private int _playerIndex;

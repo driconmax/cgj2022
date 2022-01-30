@@ -8,14 +8,16 @@ public class MoveThePlayer : PlayerMovementController
     private Map _map;
     public Vector2Int _characaterPosition;
     CharacterRenderer _characterRenderer;
+    CheckPlayerCombo _checkPlayerCombo;
 
 
-    public MoveThePlayer(ICharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer)
+    public MoveThePlayer(ICharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer, List<PlayerCombo> playerCombos)
     {
         _view = view;
         _map = map;
         _characaterPosition = characterPositon;
         _characterRenderer = characterRenderer;
+        _checkPlayerCombo = new CheckPlayerCombo(playerCombos);
     }
 
 
