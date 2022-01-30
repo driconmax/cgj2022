@@ -19,7 +19,7 @@ public class MoveThePlayer : PlayerMovementController
     }
 
 
-    public void MoveCharacterRight()
+    public void MoveCharacterRight(int playerIndex)
     {
         if (IsValidPosition(_characaterPosition.x + 1, _characaterPosition.y))
         {
@@ -27,7 +27,7 @@ public class MoveThePlayer : PlayerMovementController
         }
     }
 
-    public void MoveCharacterLeft()
+    public void MoveCharacterLeft(int playerIndex)
     {
         if (IsValidPosition(_characaterPosition.x - 1, _characaterPosition.y))
         {
@@ -35,17 +35,17 @@ public class MoveThePlayer : PlayerMovementController
         }
     }
 
-    public void MoveCharacterUp()
+    public void MoveCharacterUp(int playerIndex)
     {
-        if (IsValidPosition(_characaterPosition.x, _characaterPosition.y + 1))
+        if (IsValidPosition(_characaterPosition.x, _characaterPosition.y + 1) && IsValidPositionForPlayer(_characaterPosition.y + 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y + 1);
         }
     }
 
-    public void MoveCharacterDown()
+    public void MoveCharacterDown(int playerIndex)
     {
-        if (IsValidPosition(_characaterPosition.x, _characaterPosition.y - 1))
+        if (IsValidPosition(_characaterPosition.x, _characaterPosition.y - 1) && IsValidPositionForPlayer(_characaterPosition.y - 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y - 1);
         }
@@ -61,6 +61,11 @@ public class MoveThePlayer : PlayerMovementController
     private bool IsValidPosition(int x, int y)
     {
         return PositionExistsInMap(x, y) && ThereIsNoTreeInPosition(x, y);
+    }
+
+    private bool IsValidPositionForPlayer(int y, int playerIndex)
+    {
+        return (playerIndex == 0)? y < _map.grid.Count/2 : y >= _map.grid.Count/2;
     }
 
     private bool ThereIsNoTreeInPosition(int x, int y)
@@ -79,8 +84,8 @@ public class MoveThePlayer : PlayerMovementController
 
 public interface PlayerMovementController
 {
-    void MoveCharacterRight();
-    void MoveCharacterLeft();
-    void MoveCharacterUp();
-    void MoveCharacterDown();
+    void MoveCharacterRight(int playerIndex);
+    void MoveCharacterLeft(int playerIndex);
+    void MoveCharacterUp(int playerIndex);
+    void MoveCharacterDown(int playerIndex);
 }

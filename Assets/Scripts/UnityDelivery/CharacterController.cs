@@ -17,7 +17,9 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer);
     private CharacterRenderer _characterRenderer;
 
-    public void Initialize(Map map, Vector2Int characterPosition)
+    private int _playerIndex;
+
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex)
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _map = map;
@@ -33,13 +35,13 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         }
 
         if (Input.GetKeyDown(KeyCode.A))
-            _moveThePlayer.MoveCharacterLeft();
+            _moveThePlayer.MoveCharacterLeft(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.D))
-            _moveThePlayer.MoveCharacterRight();
+            _moveThePlayer.MoveCharacterRight(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.W))
-            _moveThePlayer.MoveCharacterUp();
+            _moveThePlayer.MoveCharacterUp(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.S))
-            _moveThePlayer.MoveCharacterDown();
+            _moveThePlayer.MoveCharacterDown(_playerIndex);
     }
 
     public void MovePlayerToCell(int row, int column)
