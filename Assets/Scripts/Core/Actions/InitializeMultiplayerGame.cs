@@ -20,7 +20,6 @@ public class InitializeMultiplayerGame : GameInitializer
     public void Start()
     {
         var _map = _mapCreator.Execute();
-        var initialPosition = _mapCreator.GetPlayerStartPosition();
 
         _multiplayerConector.Execute();
 
@@ -45,9 +44,11 @@ public class InitializeMultiplayerGame : GameInitializer
 
         _multiplayerConector.OnJoinedRoom(() => {
             _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
-            
+
+            var playerIndex = _multiplayerConector.PlayerCount - 1;
+            var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition());
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex));
 
         });
 

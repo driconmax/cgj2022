@@ -45,14 +45,23 @@ public class CreateMap : MapCreator
         return _map;
     }
 
-    public Vector2 GetPlayerStartPosition()
+    public Vector2 GetPlayerStartPosition(int playerIndex)
     {
         Vector2Int position = _mapper.PlayerStartPosition;
+        if (playerIndex == 1)
+        {
+            position = _mapper.EnemyStartPosition;
+        }
         return _map.grid[position.x][position.y].GetPosition();
     }
 
-    public Vector2Int GetPlayerMappedStartPosition()
+    public Vector2Int GetPlayerMappedStartPosition(int playerIndex)
     {
-        return _mapper.PlayerStartPosition;
+        if (playerIndex == 0)
+        {
+            return _mapper.PlayerStartPosition;
+        } else {
+            return _mapper.EnemyStartPosition;
+        }
     }
 }
