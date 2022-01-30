@@ -20,6 +20,8 @@ public class ConnectToServer : MultiplayerConnector
 
     public bool IsConnected => _multiplayer.IsConnected;
 
+    public int PlayerCount => _multiplayer.PlayerCount;
+
     public bool HasCounterPlayer => _multiplayer.HasCounterPlayer;
 
     public void OnJoinedRoom(Action Then) => _multiplayer.OnJoinedRoom(Then);

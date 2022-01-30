@@ -13,6 +13,7 @@ public class PhotonMultiplayerService : MonoBehaviourPunCallbacks, MultiplayerSe
 
     public bool IsConnected => PhotonNetworkAdapter.IsConnected;
     public bool HasCounterPlayer => PhotonNetworkAdapter.HasCounterPlayer();
+    public int PlayerCount => PhotonNetworkAdapter.PlayerCount;
 
     public void Connect()
     {

@@ -14,4 +14,5 @@ public interface MultiplayerService
     CharacterController InstanciatePlayer(Vector2 initialPosition);
     bool IsConnected { get; }
     bool HasCounterPlayer { get; }
+    int PlayerCount { get; }
 }

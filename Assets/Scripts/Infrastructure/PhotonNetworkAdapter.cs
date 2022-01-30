@@ -82,6 +82,8 @@ public static class PhotonNetworkAdapter
         return PhotonNetwork.IsMasterClient;
     }
 
+    public static int PlayerCount => PhotonNetwork.CurrentRoom.PlayerCount;
+
     public static  bool SetMasterClient(Player player)
     {
         return PhotonNetwork.SetMasterClient(player);

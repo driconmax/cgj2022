@@ -8,6 +8,7 @@ public interface MultiplayerConnector
     void JoinRoom();
     bool IsConnected { get; }
     bool HasCounterPlayer { get; }
+    int  PlayerCount { get; }
     void OnJoinedRoom(Action Then);
     void OnConnectToServer(Action Then);
     void PlayerEnteredInARoom(Action Then);
