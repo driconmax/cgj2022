@@ -77,7 +77,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         else
         {
             var animatorClipName = (string)stream.ReceiveNext();
-            _characterRenderer.PlayAnimation(animatorClipName);
+            //_characterRenderer.PlayAnimation(animatorClipName);
         }
     }
 
