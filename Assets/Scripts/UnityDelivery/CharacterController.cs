@@ -17,19 +17,22 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     ScenarioController _scenarioController;
     private Map _map;
     private Vector2Int _characterPosition;
+    private Installer _installer;
 
     private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos, ChangeScenario);
     private CharacterRenderer _characterRenderer;
 
     private int _playerIndex;
+    private CellView _lastCell;
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, ScenarioController scenarioController)
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, ScenarioController scenarioController, Installer installer)
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _map = map;
         _characterPosition = characterPosition;
         _playerIndex = playerIndex;
         _scenarioController = scenarioController;
+        _installer = installer;
 
         _moveThePlayer = _Initialize;
     }
@@ -65,6 +68,10 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
     private void MovePlayerToCell(Cell gridCell)
     {
+        if(_installer.CellToObject.TryGetValue(gridCell, out CellView cellObject)){
+            _lastCell?.ChangeStatus(true);
+            _lastCell = cellObject.ChangeStatus(false);
+        }
         transform.localPosition = gridCell.GetPosition();
     }
 

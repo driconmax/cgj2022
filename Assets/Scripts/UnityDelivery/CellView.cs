@@ -9,6 +9,10 @@ public class CellView : MonoBehaviour
     [SerializeField] List<Sprite> possibleSprites;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject buttonUp;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip popClip;
+    [SerializeField] AudioClip downClip;
+    [SerializeField] AudioClip upClip;
 
     private Cell _cell;
 
@@ -21,6 +25,24 @@ public class CellView : MonoBehaviour
     public void SetUp(Cell cell)
     {
         _cell = cell;
+    }
+
+    public CellView ChangeStatus(bool status)
+    {
+        _cell.Status = status;
+        buttonUp.SetActive(status);
+        audioSource.PlayOneShot(popClip);
+
+        if (status)
+        {
+            audioSource.PlayOneShot(downClip);
+        }
+        else
+        {
+            audioSource.PlayOneShot(upClip);
+        }
+
+        return this;
     }
 
 }

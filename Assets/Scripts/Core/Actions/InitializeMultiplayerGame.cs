@@ -52,7 +52,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var playerIndex = _multiplayerConector.PlayerCount - 1;
             var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _scenarioController);
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _scenarioController, _installer);
 
         });
 

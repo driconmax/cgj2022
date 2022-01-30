@@ -1179,7 +1179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 237.85, y: 0}
+  m_AnchoredPosition: {x: 237.84998, y: 0}
   m_SizeDelta: {x: 178.5, y: 309.54}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1225215064
@@ -2318,7 +2318,7 @@ MonoBehaviour:
     PlayerStartPosition: {x: 0, y: 0}
     EnemyStartPosition: {x: 9, y: 9}
   groundPrefabs:
-  - {fileID: 7272593707534263201, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
+  - {fileID: 7536915114054703334, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
   photonServer: {fileID: 3252725634045749178}
   scenarioController: {fileID: 1144547592}
   menu: {fileID: 1404270872}
