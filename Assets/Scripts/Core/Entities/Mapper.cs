@@ -8,6 +8,6 @@ public struct Mapper
     public int Colums;
     public Vector2 CellSize;
     public Vector2 MapStartPosition;
-    public Vector2Int Player1_StartPosition;
-    public Vector2Int Player2_StartPosition;
+    public Vector2Int PlayerStartPosition;
+    public Vector2Int EnemyStartPosition;
 }

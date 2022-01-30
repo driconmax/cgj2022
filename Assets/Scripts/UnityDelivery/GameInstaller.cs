@@ -6,23 +6,20 @@ public class GameInstaller : MonoBehaviour, Installer
 {
     [SerializeField] Mapper mapper;
     [SerializeField] private List<GameObject> groundPrefabs;
-    [SerializeField] private CharacterController player1;
-    [SerializeField] private CharacterController player2;
     [SerializeField] private PhotonMultiplayerService photonServer;
+    [SerializeField] private MenuView menu;
 
     private GameInitializer _gameInitializer;
     private MapCreator _mapCreator;
     private MultiplayerConnector _multiplayerConector;
     private Map _map;
 
-    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator, _multiplayerConector);
+    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator, _multiplayerConector, menu);
 
     private void Awake()
     {
         _mapCreator = new CreateMap(mapper);
         _multiplayerConector = new ConnectToServer(photonServer);
-
-
 
         _gameInitializer = _Initialize;
     }
@@ -32,6 +29,7 @@ public class GameInstaller : MonoBehaviour, Installer
         _gameInitializer.Start();
     }
 
+    //
     public void GenerateMap(Map map)
     {
         _map = map;
@@ -45,21 +43,6 @@ public class GameInstaller : MonoBehaviour, Installer
 
                 cellObject.transform.localPosition = cell.GetPosition();
             }
-        }
-    }
-
-    public void SetPlayerInitialPosition(PlayerData data, Vector2 position)
-    {
-        if (data.Player.Equals(PlayerType.Player1)){
-
-           var _player1 = Instantiate(player1, position, Quaternion.identity);
-            _player1.Initialize(_map, mapper.Player1_StartPosition);
-
-        } else {
-
-           var _player2 = Instantiate(player2, position, Quaternion.identity);
-             _player2.Initialize(_map, mapper.Player2_StartPosition);
-
         }
     }
 }

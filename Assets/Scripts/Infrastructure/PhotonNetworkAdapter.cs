@@ -10,10 +10,7 @@ public static class PhotonNetworkAdapter
         PhotonNetwork.NickName = nick;
     }
 
-    public static bool IsConnected()
-    {
-        return PhotonNetwork.IsConnected;
-    }
+    public static bool IsConnected => PhotonNetwork.IsConnected;
 
     public static bool JoinLobby(TypedLobby typedLobby = null)
     {
@@ -25,9 +22,9 @@ public static class PhotonNetworkAdapter
         return PhotonNetwork.CreateRoom(roomName, roomOptions, typedLobby, expectedUsers);
     }
 
-    public static bool JoinRoom(string name, string[] expectedUsers = null)
+    public static bool JoinRoom()
     {
-        return PhotonNetwork.JoinRoom(name, expectedUsers);
+        return PhotonNetwork.JoinRandomOrCreateRoom(null, 2);
     }
 
     public static bool ConnectUsingSettings()
@@ -58,6 +55,11 @@ public static class PhotonNetworkAdapter
     public static bool InRoom()
     {
         return PhotonNetwork.InRoom;
+    }
+
+    public static bool HasCounterPlayer()
+    {
+        return PhotonNetwork.CurrentRoom == null ? false : PhotonNetwork.CurrentRoom.PlayerCount > 1;
     }
 
     public static Room CurrentRoom()
