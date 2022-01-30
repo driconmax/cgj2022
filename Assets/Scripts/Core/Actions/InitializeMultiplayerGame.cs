@@ -48,7 +48,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var playerIndex = _multiplayerConector.PlayerCount - 1;
             var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex);
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, OnPlayerMove);
 
         });
 
@@ -60,5 +60,10 @@ public class InitializeMultiplayerGame : GameInitializer
 
         _installer.GenerateMap(_map);
 
+    }
+
+    private void OnPlayerMove(int value)
+    {
+        UnityEngine.Debug.Log(value);
     }
 }

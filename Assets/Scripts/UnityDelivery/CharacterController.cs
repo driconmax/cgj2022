@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,16 +15,18 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private PlayerMovementController _moveThePlayer;
     private Map _map;
     private Vector2Int _characterPosition;
+    private Action<int> _OnPlayerMove;
 
-    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos);
+    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos, _OnPlayerMove);
     private CharacterRenderer _characterRenderer;
 
     private int _playerIndex;
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex)
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, Action<int> OnPlayerMove)
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _map = map;
+        _OnPlayerMove += OnPlayerMove;
         _characterPosition = characterPosition;
         _moveThePlayer = _Initialize;
         _playerIndex = playerIndex;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,13 @@ public class MoveThePlayer : PlayerMovementController
     public Vector2Int _characaterPosition;
     CharacterRenderer _characterRenderer;
     CheckPlayerCombo _checkPlayerCombo;
+    Action<int> _OnPlayerMove;
 
-
-    public MoveThePlayer(ICharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer, List<PlayerCombo> playerCombos)
+    public MoveThePlayer(ICharacterView view, Map map, Vector2Int characterPositon, CharacterRenderer characterRenderer, List<PlayerCombo> playerCombos, Action<int> OnPlayerMove)
     {
         _view = view;
         _map = map;
+        _OnPlayerMove += OnPlayerMove;
         _characaterPosition = characterPositon;
         _characterRenderer = characterRenderer;
         _checkPlayerCombo = new CheckPlayerCombo(playerCombos);
@@ -26,6 +28,8 @@ public class MoveThePlayer : PlayerMovementController
         if (IsValidPosition(_characaterPosition.x + 1, _characaterPosition.y))
         {
             MoveCharacterToPosition(_characaterPosition.x + 1, _characaterPosition.y);
+
+            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.East));
         }
     }
 
@@ -34,6 +38,7 @@ public class MoveThePlayer : PlayerMovementController
         if (IsValidPosition(_characaterPosition.x - 1, _characaterPosition.y))
         {
             MoveCharacterToPosition(_characaterPosition.x - 1, _characaterPosition.y);
+            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.West));
         }
     }
 
@@ -42,6 +47,7 @@ public class MoveThePlayer : PlayerMovementController
         if (IsValidPosition(_characaterPosition.x, _characaterPosition.y + 1) && IsValidPositionForPlayer(_characaterPosition.y + 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y + 1);
+           _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.North));
         }
     }
 
@@ -50,6 +56,7 @@ public class MoveThePlayer : PlayerMovementController
         if (IsValidPosition(_characaterPosition.x, _characaterPosition.y - 1) && IsValidPositionForPlayer(_characaterPosition.y - 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y - 1);
+            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.South));
         }
     }
 

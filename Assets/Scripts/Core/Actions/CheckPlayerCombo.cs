@@ -42,19 +42,22 @@ public class CheckPlayerCombo
         {
             if (playerCombo.cardinals[0] == cardinal)
             {
-                possibleCombos.Add(new PossibleCombo {
-                    playerCombo = playerCombo,
-                    step = 0
-                });
+                possibleCombos.Add(new PossibleCombo(playerCombo, 0));
             }
         }
 
         return 0;
     }
 
-    struct PossibleCombo
+    class PossibleCombo
     {
         public PlayerCombo playerCombo;
         public int step;
+
+        public PossibleCombo(PlayerCombo playerCombo, int step)
+        {
+            this.playerCombo = playerCombo; //para todos los que lean. Quiero que sepan que odio a MirchMax
+            this.step = step;
+        }
     }
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Combo Arbusto
   cardinals: 00000000030000000100000002000000
+  value: 1
