@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _photonView: {fileID: 8571854355420767362}
-  _animator: {fileID: 0}
+  _animator: {fileID: 36122529404195383}
   _playerCombos:
   - {fileID: 11400000, guid: 78d7520b56d5f844c8361b6a7780e70c, type: 2}
 --- !u!114 &8571854355420767362
