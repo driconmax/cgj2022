@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816bb09ba5010794188f07bba455075a, type: 3}
   m_Name: Combo1
   m_EditorClassIdentifier: 
-  name: 
-  cardinals: 
+  name: Combo Arbusto
+  cardinals: 00000000030000000100000002000000
