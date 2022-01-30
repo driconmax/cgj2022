@@ -21,7 +21,7 @@ public class CheckPlayerCombo
             PossibleCombo possibleCombo = possibleCombos[i];
             if (possibleCombo.playerCombo.cardinals[possibleCombo.step + 1] == cardinal)
             {
-                if(possibleCombo.playerCombo.cardinals.Count == possibleCombo.step + 1)
+                if(possibleCombo.playerCombo.cardinals.Count == possibleCombo.step + 2)
                 {
                     possibleCombos.Clear();
                     return possibleCombo.playerCombo.value;
