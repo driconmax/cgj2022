@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb41dcac40d84174db114898032d427a, type: 3}
-  m_Name: Tree
+  m_Script: {fileID: 11500000, guid: 816bb09ba5010794188f07bba455075a, type: 3}
+  m_Name: Combo3
   m_EditorClassIdentifier: 
-  gameObject: {fileID: 7272593707534263201, guid: 21ea9e5b83bfe4540a1bbc686c7bf49c, type: 3}
+  name: Combo Arbusto
+  cardinals: 0200000000000000020000000000000001000000
   value: 3

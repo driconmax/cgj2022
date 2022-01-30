@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb41dcac40d84174db114898032d427a, type: 3}
-  m_Name: Tree
+  m_Name: BigTree
   m_EditorClassIdentifier: 
-  gameObject: {fileID: 7272593707534263201, guid: 21ea9e5b83bfe4540a1bbc686c7bf49c, type: 3}
-  value: 3
+  gameObject: {fileID: 7272593707534263201, guid: 61a1a0c0ff029a743a8a67f9150e3084, type: 3}
+  value: 4
