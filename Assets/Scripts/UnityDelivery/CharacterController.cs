@@ -25,6 +25,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         _map = map;
         _characterPosition = characterPosition;
         _moveThePlayer = _Initialize;
+        _playerIndex = playerIndex;
     }
 
     private void Update()
