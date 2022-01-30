@@ -82,7 +82,7 @@ public class MoveThePlayer : PlayerMovementController
     private void MoveCharacterToPosition(int newX, int newY)
     {
         _characaterPosition = new Vector2Int(newX, newY);
-        _characterRenderer.SetDirection(_characaterPosition);
+        _characterRenderer.SetJumpAnimation();
         _view.MovePlayerToCell(_characaterPosition.x, _characaterPosition.y);
     }
 
