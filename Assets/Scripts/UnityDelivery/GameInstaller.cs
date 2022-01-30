@@ -7,6 +7,7 @@ public class GameInstaller : MonoBehaviour, Installer
     [SerializeField] Mapper mapper;
     [SerializeField] private List<GameObject> groundPrefabs;
     [SerializeField] private PhotonMultiplayerService photonServer;
+    [SerializeField] private ChangeScenarioObjects scenarioController;
     [SerializeField] private MenuView menu;
 
     private GameInitializer _gameInitializer;
@@ -14,7 +15,7 @@ public class GameInstaller : MonoBehaviour, Installer
     private MultiplayerConnector _multiplayerConector;
     private Map _map;
 
-    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator, _multiplayerConector, menu);
+    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator, _multiplayerConector, menu, scenarioController);
 
     private void Awake()
     {

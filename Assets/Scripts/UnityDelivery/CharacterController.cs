@@ -13,23 +13,24 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [SerializeField] private List<PlayerCombo> _playerCombos = null;
 
     private PlayerMovementController _moveThePlayer;
+    ScenarioController _scenarioController;
     private Map _map;
     private Vector2Int _characterPosition;
-    private Action<int> _OnPlayerMove;
 
-    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos, _OnPlayerMove);
+    private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos, ChangeScenario);
     private CharacterRenderer _characterRenderer;
 
     private int _playerIndex;
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, Action<int> OnPlayerMove)
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, ScenarioController scenarioController)
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _map = map;
-        _OnPlayerMove += OnPlayerMove;
         _characterPosition = characterPosition;
-        _moveThePlayer = _Initialize;
         _playerIndex = playerIndex;
+        _scenarioController = scenarioController;
+
+        _moveThePlayer = _Initialize;
     }
 
     private void Update()
@@ -72,9 +73,28 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         }
     }
 
+    public void ChangeScenario(int value)
+    {
+        //recibo el valor del objeto a instanciar
+        //recibo el player index de quién lo hizo
+
+        //tambien tengo que sincronizarlo a traves de la rpc
+        // photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, _value);
+
+    }
+
     [PunRPC]
     public void RPC_SetPlayerAvatar(int index)
     {
         //spriteRenderer
+    }
+
+    [PunRPC]
+    public void RPC_PlayerCombo(int playerIndex, int value)
+    {
+        //spriteRenderer
+
+        // le digo donde instanciar
+        //_scenarioController
     }
 }

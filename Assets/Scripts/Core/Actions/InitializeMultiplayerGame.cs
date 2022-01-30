@@ -8,13 +8,15 @@ public class InitializeMultiplayerGame : GameInitializer
     readonly MapCreator _mapCreator;
     readonly MultiplayerConnector _multiplayerConector;
     readonly Menu _menu;
+    readonly ScenarioController _scenarioController;
 
-    public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator, MultiplayerConnector multiplayerConnector, Menu menu)
+    public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator, MultiplayerConnector multiplayerConnector, Menu menu, ScenarioController scenarioController)
     {
         _installer = installer;
         _mapCreator = mapCreator;
         _multiplayerConector = multiplayerConnector;
         _menu = menu;
+        _scenarioController = scenarioController;
     }
 
     public void Start()
@@ -48,7 +50,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var playerIndex = _multiplayerConector.PlayerCount - 1;
             var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, OnPlayerMove);
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _scenarioController);
 
         });
 
@@ -60,10 +62,5 @@ public class InitializeMultiplayerGame : GameInitializer
 
         _installer.GenerateMap(_map);
 
-    }
-
-    private void OnPlayerMove(int value)
-    {
-        UnityEngine.Debug.Log(value);
     }
 }
