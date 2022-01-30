@@ -1048,6 +1048,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144547591}
   - component: {fileID: 1144547590}
+  - component: {fileID: 1144547592}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1082,6 +1083,19 @@ Transform:
   m_Father: {fileID: 6437008883548917326}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144547592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144547589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e00c432230c4014f88e73d1c673def0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneSpawnObjects: []
 --- !u!1 &1225215062
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,7 +2193,7 @@ MonoBehaviour:
   groundPrefabs:
   - {fileID: 7272593707534263201, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
   photonServer: {fileID: 3252725634045749178}
-  scenarioController: {fileID: 0}
+  scenarioController: {fileID: 1144547592}
   menu: {fileID: 1404270872}
 --- !u!1 &5919225171883886860
 GameObject:

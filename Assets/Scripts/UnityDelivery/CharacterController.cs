@@ -51,7 +51,10 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         else if (Input.GetKeyDown(KeyCode.S))
             comboScore = _moveThePlayer.MoveCharacterDown(_playerIndex);
 
-        if (comboScore > 0) ChangeScenario(comboScore);
+        if (comboScore > 0)
+        {
+            ChangeScenario(comboScore);
+        }
     }
 
     public void MovePlayerToCell(int row, int column)
