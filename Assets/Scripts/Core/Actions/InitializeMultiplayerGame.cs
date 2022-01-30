@@ -6,11 +6,13 @@ public class InitializeMultiplayerGame : GameInitializer
 {
     readonly Installer _installer;
     readonly MapCreator _mapCreator;
+    readonly MultiplayerConnector _multiplayer;
 
-    public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator)
+    public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator, MultiplayerConnector multiplayer)
     {
         _installer = installer;
         _mapCreator = mapCreator;
+        _multiplayer = multiplayer;
     }
 
     public void Start()
@@ -21,6 +23,9 @@ public class InitializeMultiplayerGame : GameInitializer
 
 
         _installer.GenerateMap(_map);
+        _multiplayer.Connect();
+
+        //
 
         _installer.SetPlayerInitialPosition( 
             new PlayerData { 

@@ -8,16 +8,21 @@ public class GameInstaller : MonoBehaviour, Installer
     [SerializeField] private List<GameObject> groundPrefabs;
     [SerializeField] private CharacterController player1;
     [SerializeField] private CharacterController player2;
+    [SerializeField] private PhotonMultiplayerService photonServer;
 
     private GameInitializer _gameInitializer;
     private MapCreator _mapCreator;
+    private MultiplayerConnector _multiplayerConector;
     private Map _map;
 
-    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator);
+    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, _mapCreator, _multiplayerConector);
 
     private void Awake()
     {
         _mapCreator = new CreateMap(mapper);
+        _multiplayerConector = new ConnectToServer(photonServer);
+
+
 
         _gameInitializer = _Initialize;
     }
