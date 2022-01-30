@@ -28,6 +28,7 @@ public class CreateMap : MapCreator
                             Index = cellCount, 
                             Row = row, 
                             Column = column, 
+                            Offset = _mapper.MapStartPosition,
                             CellSize = _mapper.CellSize, 
                             Type = 0, 
                             Status = false 
