@@ -23,6 +23,8 @@ public class InitializeMultiplayerGame : GameInitializer
     {
         var _map = _mapCreator.Execute();
 
+        _scenarioController.SetMap(_map);
+
         _multiplayerConector.Execute();
 
         _multiplayerConector.OnConnectToServer(() => {

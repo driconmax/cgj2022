@@ -23,41 +23,60 @@ public class MoveThePlayer : PlayerMovementController
     }
 
 
-    public void MoveCharacterRight(int playerIndex)
+    public int MoveCharacterRight(int playerIndex)
     {
+        int comboScore = 0;
         if (IsValidPosition(_characaterPosition.x + 1, _characaterPosition.y))
         {
             MoveCharacterToPosition(_characaterPosition.x + 1, _characaterPosition.y);
 
-            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.East));
+            comboScore = _checkPlayerCombo.Check(Cardinal.East);
+            _OnPlayerMove(comboScore);
         }
+
+        return comboScore;
     }
 
-    public void MoveCharacterLeft(int playerIndex)
+    public int MoveCharacterLeft(int playerIndex)
     {
+        int comboScore = 0;
         if (IsValidPosition(_characaterPosition.x - 1, _characaterPosition.y))
         {
             MoveCharacterToPosition(_characaterPosition.x - 1, _characaterPosition.y);
-            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.West));
+
+            comboScore = _checkPlayerCombo.Check(Cardinal.West);
+            _OnPlayerMove(comboScore);
         }
+
+        return comboScore;
     }
 
-    public void MoveCharacterUp(int playerIndex)
+    public int MoveCharacterUp(int playerIndex)
     {
+        int comboScore = 0;
         if (IsValidPosition(_characaterPosition.x, _characaterPosition.y + 1) && IsValidPositionForPlayer(_characaterPosition.y + 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y + 1);
-           _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.North));
+
+             comboScore = _checkPlayerCombo.Check(Cardinal.North);
+            _OnPlayerMove(comboScore);
         }
+
+        return comboScore;
     }
 
-    public void MoveCharacterDown(int playerIndex)
+    public int MoveCharacterDown(int playerIndex)
     {
+        int comboScore = 0;
         if (IsValidPosition(_characaterPosition.x, _characaterPosition.y - 1) && IsValidPositionForPlayer(_characaterPosition.y - 1, playerIndex))
         {
             MoveCharacterToPosition(_characaterPosition.x, _characaterPosition.y - 1);
-            _OnPlayerMove(_checkPlayerCombo.Check(Cardinal.South));
+
+            comboScore = _checkPlayerCombo.Check(Cardinal.South);
+            _OnPlayerMove(comboScore);
         }
+
+        return comboScore;
     }
 
     private void MoveCharacterToPosition(int newX, int newY)
@@ -93,8 +112,8 @@ public class MoveThePlayer : PlayerMovementController
 
 public interface PlayerMovementController
 {
-    void MoveCharacterRight(int playerIndex);
-    void MoveCharacterLeft(int playerIndex);
-    void MoveCharacterUp(int playerIndex);
-    void MoveCharacterDown(int playerIndex);
+    int MoveCharacterRight(int playerIndex);
+    int MoveCharacterLeft(int playerIndex);
+    int MoveCharacterUp(int playerIndex);
+    int MoveCharacterDown(int playerIndex);
 }

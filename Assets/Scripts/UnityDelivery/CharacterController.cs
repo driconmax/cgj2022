@@ -40,14 +40,18 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
             return;
         }
 
+        int comboScore = 0;
+
         if (Input.GetKeyDown(KeyCode.A))
-            _moveThePlayer.MoveCharacterLeft(_playerIndex);
+            comboScore = _moveThePlayer.MoveCharacterLeft(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.D))
-            _moveThePlayer.MoveCharacterRight(_playerIndex);
+            comboScore = _moveThePlayer.MoveCharacterRight(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.W))
-            _moveThePlayer.MoveCharacterUp(_playerIndex);
+            comboScore = _moveThePlayer.MoveCharacterUp(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.S))
-            _moveThePlayer.MoveCharacterDown(_playerIndex);
+            comboScore = _moveThePlayer.MoveCharacterDown(_playerIndex);
+
+        if (comboScore > 0) ChangeScenario(comboScore);
     }
 
     public void MovePlayerToCell(int row, int column)
@@ -80,6 +84,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
         //tambien tengo que sincronizarlo a traves de la rpc
         // photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, _value);
+        _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, value);
 
     }
 
@@ -96,5 +101,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
         // le digo donde instanciar
         //_scenarioController
+
     }
 }
