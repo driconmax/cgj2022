@@ -25,6 +25,8 @@ public class InitializeMultiplayerGame : GameInitializer
 
         _scenarioController.SetMap(_map);
 
+        ServiceLocator.RegisterServices(_scenarioController);
+
         _multiplayerConector.Execute();
 
         _multiplayerConector.OnConnectToServer(() => {
@@ -52,7 +54,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var playerIndex = _multiplayerConector.PlayerCount - 1;
             var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _scenarioController, _installer);
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _installer);
 
         });
 

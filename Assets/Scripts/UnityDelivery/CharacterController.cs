@@ -25,13 +25,17 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private int _playerIndex;
     private CellView _lastCell;
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, ScenarioController scenarioController, Installer installer)
+    private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
+        _scenarioController = ServiceLocator.GetServices<ScenarioController>();
+    }
+
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, Installer installer)
+    {
         _map = map;
         _characterPosition = characterPosition;
         _playerIndex = playerIndex;
-        _scenarioController = scenarioController;
         _installer = installer;
 
         _moveThePlayer = _Initialize;
@@ -84,7 +88,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         else
         {
             var animatorClipName = (string)stream.ReceiveNext();
-            //_characterRenderer.PlayAnimation(animatorClipName);
+            _characterRenderer.PlayAnimation(animatorClipName);
         }
     }
 
@@ -113,6 +117,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
         // le digo donde instanciar
         //_scenarioController
+
         _scenarioController.SpawnObjectRandom(value);
     }
 }
