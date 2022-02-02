@@ -14,16 +14,18 @@ public class MenuView : MonoBehaviour, Menu
     [SerializeField] Button previous;
     [SerializeField] SkeletonGraphic animator;
 
-    public int index = 0;
+    private int _index = 1;
+    private Spine.Skin[] _skins;
 
     private void Awake()
     {
         ShowLobby();
+
+        _skins = animator.Skeleton.Data.Skins.Items;
     }
 
     public void ShowLobby()
     {
-        var charactersCount = animator.Skeleton.Data.Skins.Count;
 
         //play keyboard sound
         //nickname.onValueChanged.AddListener();
@@ -31,26 +33,30 @@ public class MenuView : MonoBehaviour, Menu
        
         next.onClick.AddListener(() =>
         {
-            index++;
+            _index++;
 
-            if (index >= charactersCount)
+            if (_index >= _skins.Length)
             {
-                index = 0;
+                _index = 1;
             }
 
-            animator.Skeleton.SetSkin(animator.Skeleton.Data.Skins.Items[index]);
+            animator.Skeleton.SetSkin(_skins[_index]);
+            animator.Skeleton.SetToSetupPose();
+            animator.Skeleton.SetSlotsToSetupPose();
         });
 
         previous.onClick.AddListener(() =>
         {
-            index--;
+            _index--;
 
-            if (index < 0)
+            if (_index < 1)
             {
-                index = charactersCount - 1;
+                _index = _skins.Length - 1;
             }
 
-            animator.Skeleton.SetSkin(animator.Skeleton.Data.Skins.Items[index]);
+            animator.Skeleton.SetSkin(_skins[_index]);
+            animator.Skeleton.SetToSetupPose();
+            animator.Skeleton.SetSlotsToSetupPose();
         });
 
 
