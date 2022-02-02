@@ -29,8 +29,12 @@ public class MenuView : MonoBehaviour, Menu
 
         //play keyboard sound
         //nickname.onValueChanged.AddListener();
-        play.onClick.AddListener(() => animator.SkeletonData.FindAnimation("menu_SELECTION"));
-       
+        play.onClick.AddListener(() =>
+        {
+            animator.SkeletonData.FindAnimation("menu_SELECTION");
+
+        });
+
         next.onClick.AddListener(() =>
         {
             _index++;
@@ -68,9 +72,12 @@ public class MenuView : MonoBehaviour, Menu
         lobby.SetActive(false);
     }
 
-    public void SetUpButtonPlay(Action<string> EnterGame)
-    { 
-        play.onClick.AddListener(() => EnterGame(nickname.text));
+    public void SetUpButtonPlay(Action<(string, string)> EnterGame)
+    {
+        play.onClick.AddListener(() =>
+        {
+            EnterGame((nickname.text, _skins[_index].Name));
+        });
     }
 
     public void ShowWaitingRoom(bool activate)

@@ -10,6 +10,8 @@ public class InitializeMultiplayerGame : GameInitializer
     readonly Menu _menu;
     readonly ScenarioController _scenarioController;
 
+    string _skinName;
+
     public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator, MultiplayerConnector multiplayerConnector, Menu menu, ScenarioController scenarioController)
     {
         _installer = installer;
@@ -33,11 +35,14 @@ public class InitializeMultiplayerGame : GameInitializer
             _menu.ShowButton();
         });
 
-        _menu.SetUpButtonPlay((nickname) => {
+        _menu.SetUpButtonPlay((tuple) => {
 
             if (_multiplayerConector.IsConnected)
             {
-                _multiplayerConector.SetPlayerNickname(nickname);
+                var _nickname = tuple.Item1;
+                _skinName = tuple.Item2;
+
+                _multiplayerConector.SetPlayerNickname(_nickname);
                 _multiplayerConector.JoinRoom();
                 _menu.HideLobby();
                 _menu.ShowWaitingRoom(true);
@@ -54,7 +59,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var playerIndex = _multiplayerConector.PlayerCount - 1;
             var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _installer);
+            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _skinName, _installer);
 
         });
 

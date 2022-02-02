@@ -31,12 +31,14 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         _scenarioController = ServiceLocator.GetServices<ScenarioController>();
     }
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, Installer installer)
+    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, string skinName, Installer installer)
     {
         _map = map;
         _characterPosition = characterPosition;
         _playerIndex = playerIndex;
         _installer = installer;
+
+        _animator.skeleton.SetSkin(skinName);
 
         _moveThePlayer = _Initialize;
     }
