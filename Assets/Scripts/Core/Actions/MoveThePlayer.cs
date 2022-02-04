@@ -98,7 +98,7 @@ public class MoveThePlayer : PlayerMovementController
 
     private bool ThereIsNoTreeInPosition(int x, int y)
     {
-        return _map.grid[y][x].Type != 3;
+        return _map.grid[y][x].GetFloorType != 3;
     }
 
     private bool PositionExistsInMap(int x, int y)

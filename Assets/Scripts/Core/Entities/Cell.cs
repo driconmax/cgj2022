@@ -1,17 +1,52 @@
 ﻿using UnityEngine;
 
-public struct Cell
-{ 
-    public int Index;
-    public int Row;
-    public int Column;
-    public Vector2 Offset;
-    public Vector2 CellSize;
-    public int Type;
-    public bool Status;
+public class Cell
+{
+    public enum AttachmentTypes
+    {
+        CLEAR,
+        BUTTON,
+        TREE
+    }
+
+    public int GetFloorType => _floorType;
+
+    private CellView _view;
+    private int _index;
+    private int _row;
+    private int _column;
+    private Vector2 _offset;
+    private Vector2 _cellSize;
+    private int _floorType;
+    private AttachmentTypes _attachmentType;
+    private bool _status;
+
+    public Cell(int index, int row, int column, Vector2 offset, Vector2 cellSize, int floorType, AttachmentTypes attachmentType, bool status)
+    {
+        _index = index;
+        _row = row;
+        _column = column;
+        _offset = offset;
+        _cellSize = cellSize;
+        _floorType = floorType;
+        _attachmentType = attachmentType;
+        _status = status;
+    }
+
+    public void SetView(CellView cellView)
+    {
+        _view = cellView;
+    }
 
     public Vector2 GetPosition()
     {
-        return new Vector3(Row * CellSize.x + Column * CellSize.y + Offset.x, Column * CellSize.y / 2f - Row * CellSize.y / 2f + Offset.y, 1f);
+        return new Vector3(_row * _cellSize.x + _column * _cellSize.y + _offset.x, _column * _cellSize.y / 2f - _row * _cellSize.y / 2f + _offset.y, 1f);
     }
+
+    public void ChangeStatus(bool status)
+    {
+        _status = status;
+        _view.ChangeStatus(status);
+    }
+
 }

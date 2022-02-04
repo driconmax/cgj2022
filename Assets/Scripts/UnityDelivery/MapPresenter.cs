@@ -12,7 +12,7 @@ public class MapPresenter
     private List<SceneSpawnObject> _sceneSpawnObjects;
     private List<SpawnedSceneSpawnObject> _spawnedObjects = new List<SpawnedSceneSpawnObject>();
 
-    private Dictionary<Cell, CellView> _cellToObject = new Dictionary<Cell, CellView>();
+    private Cell _lastCell;
 
     public MapPresenter(MapView view, MapCreator mapCreator, List<SceneSpawnObject> sceneSpawnObjects)
     {
@@ -36,11 +36,10 @@ public class MapPresenter
         {
             for (var row = 0; row < map.grid[column].Count; row++)
             {
-                var cell = map.grid[column][row];
+                Cell cell = map.grid[column][row];
 
-               var cellView = _view.CreateGround(cell.Type, cell.GetPosition());
-
-                _cellToObject.Add(cell, cellView);
+                var cellView = _view.CreateGround(cell.GetFloorType, cell.GetPosition());
+                cell.SetView(cellView);
             }
         }
     }
@@ -68,6 +67,13 @@ public class MapPresenter
         }
     }
 
+    public void ToggleButton(Cell gridCell)
+    {
+        _lastCell?.ChangeStatus(true);
+        gridCell.ChangeStatus(false);
+        _lastCell = gridCell;
+    }
+
     public void SpawnObjectRandom(int value)
     {
         int x = UnityEngine.Random.Range(0, _map.grid.Count);
@@ -79,12 +85,12 @@ public class MapPresenter
 
         var position = _map.grid[x][y].GetPosition();
 
-        var spawnObject = _view.CreateSpawnObject(_sceneSpawnObjects[o], position);
+        var spawnObject = _view.CreateSpawnObject(filteredSceneSpawnObjects[o].gameObject, position);
 
         _spawnedObjects.Add(new SpawnedSceneSpawnObject
         {
             sceneSpawnObject = filteredSceneSpawnObjects[o],
-            spawnObject = spawnObject.gameObject,
+            spawnObject = spawnObject,
             position = new UnityEngine.Vector2Int(x, y)
         });
     }

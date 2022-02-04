@@ -26,16 +26,8 @@ public class CreateMap : MapCreator
 
             for (int row = 0; row < _mapper.Rows; row++)
             {
-                _row.Add(new Cell
-                {
-                    Index = cellCount,
-                    Row = row,
-                    Column = column,
-                    Offset = _mapper.MapStartPosition,
-                    CellSize = _mapper.CellSize,
-                    Type = 0,
-                    Status = false
-                });
+                Cell cell = new Cell(cellCount, row, column, _mapper.MapStartPosition, _mapper.CellSize, 0, Cell.AttachmentTypes.BUTTON, false);
+                _row.Add(cell);
             }
 
             _map.grid.Add(_row);

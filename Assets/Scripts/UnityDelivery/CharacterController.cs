@@ -72,11 +72,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
     private void MovePlayerToCell(Cell gridCell)
     {
-        //if(_installer.CellToObject.TryGetValue(gridCell, out CellView cellObject)){
-            
-        //    _lastCell?.ChangeStatus(true);
-        //    _lastCell = cellObject.ChangeStatus(false);
-        //}
+        _mapPresenter.ToggleButton(gridCell);
 
         transform.localPosition = gridCell.GetPosition();
     }
@@ -120,6 +116,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         // le digo donde instanciar
         //_scenarioController
 
-        //_scenarioController.SpawnObjectRandom(value);
+        _mapPresenter.SpawnObjectRandom(value);
     }
 }

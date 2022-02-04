@@ -13,6 +13,10 @@ public class CellView : MonoBehaviour
     [SerializeField] AudioClip popClip;
     [SerializeField] AudioClip downClip;
     [SerializeField] AudioClip upClip;
+    [SerializeField] Transform button;
+    [SerializeField] Transform attachment;
+
+    private Cell _cell;
 
     private void Awake()
     {
