@@ -181,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3473034090180843822
 Transform:
   m_ObjectHideFlags: 0
@@ -320,8 +320,8 @@ MonoBehaviour:
   popClip: {fileID: 8300000, guid: 30f88d69b4edd1845b892fd92091bdbb, type: 3}
   downClip: {fileID: 8300000, guid: db45e06021a825a4eb3d418245bd8b11, type: 3}
   upClip: {fileID: 8300000, guid: dd421bda54cc2a14f80ea0239e0fd2ce, type: 3}
-  button: {fileID: 0}
-  attachment: {fileID: 0}
+  button: {fileID: 3473034090180843822}
+  attachment: {fileID: 1137490427878791903}
 --- !u!82 &7830321200941472364
 AudioSource:
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7272593707534263201, guid: 61a1a0c0ff029a743a8a67f9150e3084, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a1a0c0ff029a743a8a67f9150e3084, type: 3}
