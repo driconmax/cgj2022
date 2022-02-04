@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7536915114054703334}
   - component: {fileID: 7830321200941472364}
   m_Layer: 0
-  m_Name: CubeBase
+  m_Name: GroundBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

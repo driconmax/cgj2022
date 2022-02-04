@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public struct Mapper
+[CreateAssetMenu(fileName = "Mapper", menuName = "Scene/Mapper")]
+public class Mapper : ScriptableObject
 {
     public int Rows;
     public int Colums;

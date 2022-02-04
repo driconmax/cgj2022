@@ -14,10 +14,9 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [SerializeField] private List<PlayerCombo> _playerCombos = null;
 
     private PlayerMovementController _moveThePlayer;
-    ScenarioController _scenarioController;
     private Map _map;
     private Vector2Int _characterPosition;
-    private Installer _installer;
+    private MapPresenter _mapPresenter;
 
     private MoveThePlayer _Initialize => new MoveThePlayer(this, _map, _characterPosition, _characterRenderer, _playerCombos, ChangeScenario);
     private CharacterRenderer _characterRenderer;
@@ -28,15 +27,14 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
-        _scenarioController = ServiceLocator.GetServices<ScenarioController>();
     }
 
-    public void Initialize(Map map, Vector2Int characterPosition, int playerIndex, string skinName, Installer installer)
+    public void Initialize(Vector2Int characterPosition, int playerIndex, string skinName, MapPresenter mapPresenter)
     {
-        _map = map;
+        _map = mapPresenter.Map;
         _characterPosition = characterPosition;
         _playerIndex = playerIndex;
-        _installer = installer;
+        _mapPresenter = mapPresenter;
 
         _animator.skeleton.SetSkin(skinName);
 
@@ -74,10 +72,12 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
     private void MovePlayerToCell(Cell gridCell)
     {
-        if(_installer.CellToObject.TryGetValue(gridCell, out CellView cellObject)){
-            _lastCell?.ChangeStatus(true);
-            _lastCell = cellObject.ChangeStatus(false);
-        }
+        //if(_installer.CellToObject.TryGetValue(gridCell, out CellView cellObject)){
+            
+        //    _lastCell?.ChangeStatus(true);
+        //    _lastCell = cellObject.ChangeStatus(false);
+        //}
+
         transform.localPosition = gridCell.GetPosition();
     }
 
@@ -120,6 +120,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         // le digo donde instanciar
         //_scenarioController
 
-        _scenarioController.SpawnObjectRandom(value);
+        //_scenarioController.SpawnObjectRandom(value);
     }
 }

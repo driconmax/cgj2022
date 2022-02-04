@@ -1045,8 +1045,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1144547594}
   - component: {fileID: 1144547590}
-  - component: {fileID: 1144547592}
   - component: {fileID: 1144547593}
+  - component: {fileID: 1144547592}
   - component: {fileID: 1144547591}
   m_Layer: 0
   m_Name: Map
@@ -1106,15 +1106,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144547589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e00c432230c4014f88e73d1c673def0, type: 3}
+  m_Script: {fileID: 11500000, guid: db86c84ed61f5014b9fb107d67958637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapper: {fileID: 11400000, guid: 7345f017b960707408f1a9a2eec01abf, type: 2}
+  groundPrefabs:
+  - {fileID: 7536915114054703334, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
   sceneSpawnObjects:
-  - {fileID: 11400000, guid: f96678a1a04c7e842bc7e34651237ebc, type: 2}
-  - {fileID: 11400000, guid: 03bf4d493b5b8aa478c23e1b5fcddcc5, type: 2}
-  - {fileID: 11400000, guid: 41fdac1dba8592349a12ab70693f3861, type: 2}
   - {fileID: 11400000, guid: 91470318266428544817126ec7b339be, type: 2}
   - {fileID: 11400000, guid: 557f70bdce4d22947aad5ccaad3b6403, type: 2}
+  - {fileID: 11400000, guid: 41fdac1dba8592349a12ab70693f3861, type: 2}
+  - {fileID: 11400000, guid: 03bf4d493b5b8aa478c23e1b5fcddcc5, type: 2}
+  - {fileID: 11400000, guid: f96678a1a04c7e842bc7e34651237ebc, type: 2}
   - {fileID: 11400000, guid: d9d20ea186392114ab114ea02487867b, type: 2}
 --- !u!222 &1144547593
 CanvasRenderer:
@@ -2288,17 +2291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7e30c50e67aa34b8ba21f37d40dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapper:
-    Rows: 10
-    Colums: 10
-    CellSize: {x: 0.5, y: 0.5}
-    MapStartPosition: {x: -4.5, y: 0}
-    PlayerStartPosition: {x: 0, y: 0}
-    EnemyStartPosition: {x: 9, y: 9}
-  groundPrefabs:
-  - {fileID: 7536915114054703334, guid: 52db7055004d55a4a949c5e7b096c95c, type: 3}
   photonServer: {fileID: 3252725634045749178}
-  scenarioController: {fileID: 1144547592}
   menu: {fileID: 1404270872}
 --- !u!1 &5919225171883886860
 GameObject:

@@ -5,30 +5,22 @@ using System.Collections.Generic;
 public class InitializeMultiplayerGame : GameInitializer
 {
     readonly Installer _installer;
-    readonly MapCreator _mapCreator;
     readonly MultiplayerConnector _multiplayerConector;
     readonly Menu _menu;
-    readonly ScenarioController _scenarioController;
+    readonly MapPresenter _mapPresenter;
 
     string _skinName;
 
-    public InitializeMultiplayerGame(Installer installer, MapCreator mapCreator, MultiplayerConnector multiplayerConnector, Menu menu, ScenarioController scenarioController)
+    public InitializeMultiplayerGame(Installer installer, MultiplayerConnector multiplayerConnector, Menu menu, MapPresenter mapPresenter)
     {
         _installer = installer;
-        _mapCreator = mapCreator;
         _multiplayerConector = multiplayerConnector;
+        _mapPresenter = mapPresenter;
         _menu = menu;
-        _scenarioController = scenarioController;
     }
 
     public void Start()
     {
-        var _map = _mapCreator.Execute();
-
-        _scenarioController.SetMap(_map);
-
-        ServiceLocator.RegisterServices(_scenarioController);
-
         _multiplayerConector.Execute();
 
         _multiplayerConector.OnConnectToServer(() => {
@@ -57,9 +49,10 @@ public class InitializeMultiplayerGame : GameInitializer
             _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
 
             var playerIndex = _multiplayerConector.PlayerCount - 1;
-            var initialPosition = _mapCreator.GetPlayerStartPosition(playerIndex);
+            var initialPosition = _mapPresenter.GetPlayerStartPosition(playerIndex);
+
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_map, _mapCreator.GetPlayerMappedStartPosition(playerIndex), playerIndex, _skinName, _installer);
+            player.Initialize(_mapPresenter.GetPlayerMappedStartPosition(playerIndex), playerIndex, _skinName, _mapPresenter);
 
         });
 
@@ -68,8 +61,5 @@ public class InitializeMultiplayerGame : GameInitializer
             _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
 
         });
-
-        _installer.GenerateMap(_map);
-
     }
 }

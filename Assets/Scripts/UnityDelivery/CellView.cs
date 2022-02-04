@@ -14,22 +14,14 @@ public class CellView : MonoBehaviour
     [SerializeField] AudioClip downClip;
     [SerializeField] AudioClip upClip;
 
-    private Cell _cell;
-
     private void Awake()
     {
         possibleSprites.Shuffle();        
         possibleSprites.First(sprite => spriteRenderer.sprite = sprite);
     }
 
-    public void SetUp(Cell cell)
-    {
-        _cell = cell;
-    }
-
     public CellView ChangeStatus(bool status)
     {
-        _cell.Status = status;
         buttonUp.SetActive(status);
         audioSource.PlayOneShot(popClip);
 

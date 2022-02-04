@@ -3,6 +3,6 @@
 public interface MapCreator
 {
     public Map Execute();
-    public Vector2 GetPlayerStartPosition(int playerIndex);
-    public Vector2Int GetPlayerMappedStartPosition(int playerIndex);
+    Vector2Int GetEnemyStartPosition { get; }
+    Vector2Int GetPlayerStartPosition { get; }
 }
