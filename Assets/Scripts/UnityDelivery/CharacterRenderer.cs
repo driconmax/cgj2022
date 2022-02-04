@@ -3,70 +3,44 @@ using Spine.Unity;
 
 public class CharacterRenderer
 {
-    public static readonly string[] StaticDirections = { "IDLE_LVL" };
-    public static readonly string[] JumpDirections = { "LEVEL_MOVE" };
-    public static readonly string[] WinDirections = { "LEVEL_WIN" };
-    public static readonly string[] LossDirections = { "LOSS_LVL" };
+    public const string Idle = "IDLE_LVL";
+    public const string Jump = "LEVEL_MOVE";
+    public const string Win = "LEVEL_WIN";
+    public const string Loss = "LOSS_LVL";
 
-
-
-    private readonly int _sliceCountDirections = 4;
     private readonly SkeletonAnimation _animator;
-    private int _lastDirection = 0;
-    private string[] _directionArray = StaticDirections;
 
-    public CharacterRenderer(SkeletonAnimation animator, int sliceCountDirections = 4)
+    public CharacterRenderer(SkeletonAnimation animator)
     {
         _animator = animator;
-        _sliceCountDirections = sliceCountDirections;
+        _animator.AnimationState.Complete += OnSpineAnimationComplete;
     }
 
     public void SetJumpAnimation()
-    { 
-        _animator.AnimationName = (JumpDirections[0]);
+    {
+        _animator.AnimationState.SetAnimation(0, Jump, false);
     }
 
     public void SetWinAnimation()
     {
-        _animator.AnimationName = (WinDirections[0]);
+        _animator.AnimationState.SetAnimation(0, Win, false);
     }
 
     public void SetLossAnimation()
     {
-        _animator.AnimationName = (LossDirections[0]);
+        _animator.AnimationState.SetAnimation(0, Loss, false);
     }
 
     public void SetIdleAnimation()
     {
-        _animator.AnimationName = (StaticDirections[0]);
+        _animator.AnimationState.SetAnimation(0, Idle, true);
     }
 
-
-    public void SetDirection(Vector2 direction)
+    private void OnSpineAnimationComplete(Spine.TrackEntry trackEntry)
     {
-        if (direction.magnitude < .01f) {
-            _directionArray = StaticDirections;
-        } else {
-            _directionArray = JumpDirections;
-            _lastDirection = DirectionToIndex(direction, _sliceCountDirections);
-        }
-
-        _animator.AnimationName = (_directionArray[_lastDirection]);
+        SetIdleAnimation();
     }
 
-    public static int DirectionToIndex(Vector2 direction, int sliceCount)
-    {
-        var _step = 360f / sliceCount;
-        var _halfStep = _step / 2;
-        var _angle = Vector2.SignedAngle(Vector2.up, direction);
-
-        _angle += _halfStep;
-        if (_angle < 0) _angle += 360;
-
-        var _stepCount = _angle / _step;
-
-        return Mathf.FloorToInt(_stepCount);
-    }
 
     public string GetAnimationName()
     {
