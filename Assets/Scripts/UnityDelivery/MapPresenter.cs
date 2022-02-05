@@ -11,6 +11,7 @@ public class MapPresenter
 
     private List<SceneSpawnObject> _sceneSpawnObjects;
     private List<SpawnedSceneSpawnObject> _spawnedObjects = new List<SpawnedSceneSpawnObject>();
+    private Dictionary<int, List<Cell>> _spawnedObjectsLevels = new Dictionary<int, List<Cell>>();
 
     private Cell _lastCell;
 
@@ -74,25 +75,47 @@ public class MapPresenter
         _lastCell = gridCell;
     }
 
-    public void SpawnObjectRandom(int value)
+    public void SpawnObjectRandom(int x, int y, int value)
     {
-        int x = UnityEngine.Random.Range(0, _map.grid.Count);
-        int y = UnityEngine.Random.Range(0, _map.grid[x].Count);
 
         List<SceneSpawnObject> filteredSceneSpawnObjects = _sceneSpawnObjects.Where(obj => obj.value == value).ToList();
 
         int o = UnityEngine.Random.Range(0, filteredSceneSpawnObjects.Count);
 
-        var position = _map.grid[x][y].GetPosition();
+        Cell cell = _map.grid[x][y];
 
-        var spawnObject = _view.CreateSpawnObject(filteredSceneSpawnObjects[o].gameObject, position);
-
-        _spawnedObjects.Add(new SpawnedSceneSpawnObject
+        if (value != 1)
         {
-            sceneSpawnObject = filteredSceneSpawnObjects[o],
-            spawnObject = spawnObject,
-            position = new UnityEngine.Vector2Int(x, y)
-        });
+            _spawnedObjectsLevels[value - 1].Remove(cell);
+        }
+
+        if (!_spawnedObjectsLevels.ContainsKey(value))
+        {
+            _spawnedObjectsLevels.Add(value, new List<Cell>());
+        }
+
+        _spawnedObjectsLevels[value].Add(cell);
+
+        cell.SpawnAttachment(filteredSceneSpawnObjects[o]);
+    }
+
+    public bool CheckValidSpawnCombo(int value)
+    {
+        if (value == 1 || (_spawnedObjectsLevels.ContainsKey(value - 1) && _spawnedObjectsLevels[value - 1].Count != 0)) return true;
+        return false;
+    }
+
+    public UnityEngine.Vector2Int GetSpawnPosition(int value)
+    {
+        if(value == 1)
+        {
+            int x = UnityEngine.Random.Range(0, _map.grid.Count);
+            int y = UnityEngine.Random.Range(0, _map.grid[x].Count);
+            return new UnityEngine.Vector2Int(x, y);
+        }
+
+        int o = UnityEngine.Random.Range(0, _spawnedObjectsLevels[value - 1].Count);
+        return _spawnedObjectsLevels[value - 1][o].GetIntPosition();
     }
 
     struct SpawnedSceneSpawnObject

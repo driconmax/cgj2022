@@ -16,10 +16,14 @@ public class CellView : MonoBehaviour
     [SerializeField] Transform button;
     [SerializeField] Transform attachment;
 
+    private GameObject _currentAttachment;
+    private Dictionary<SceneSpawnObject, GameObject> _attachments;
+
     private Cell _cell;
 
     private void Awake()
     {
+        _attachments = new Dictionary<SceneSpawnObject,GameObject>();
         possibleSprites.Shuffle();        
         possibleSprites.First(sprite => spriteRenderer.sprite = sprite);
     }
@@ -39,6 +43,22 @@ public class CellView : MonoBehaviour
         }
 
         return this;
+    }
+    public void SpawnAttachment(SceneSpawnObject sceneSpawnObject)
+    {
+        if (_attachments.ContainsKey(sceneSpawnObject))
+        {
+            _attachments[sceneSpawnObject].SetActive(true);
+        }
+        else
+        {
+            button.gameObject.SetActive(false);
+
+            _currentAttachment?.SetActive(false);
+            GameObject instance = Instantiate(sceneSpawnObject.gameObject, attachment);
+            _attachments.Add(sceneSpawnObject, instance);
+            _currentAttachment = instance;
+        }
     }
 
 }

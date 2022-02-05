@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Cell
 {
@@ -10,6 +11,7 @@ public class Cell
     }
 
     public int GetFloorType => _floorType;
+    public AttachmentTypes GetAttachmentType => _attachmentType;
 
     private CellView _view;
     private int _index;
@@ -20,6 +22,7 @@ public class Cell
     private int _floorType;
     private AttachmentTypes _attachmentType;
     private bool _status;
+    private SceneSpawnObject _currentAttachment;
 
     public Cell(int index, int row, int column, Vector2 offset, Vector2 cellSize, int floorType, AttachmentTypes attachmentType, bool status)
     {
@@ -49,4 +52,16 @@ public class Cell
         _view.ChangeStatus(status);
     }
 
+
+    public void SpawnAttachment(SceneSpawnObject sceneSpawnObject)
+    {
+        _attachmentType = AttachmentTypes.TREE;
+        _currentAttachment = sceneSpawnObject;
+        _view.SpawnAttachment(sceneSpawnObject);
+    }
+
+    internal Vector2Int GetIntPosition()
+    {
+        return new Vector2Int(_column, _row);
+    }
 }

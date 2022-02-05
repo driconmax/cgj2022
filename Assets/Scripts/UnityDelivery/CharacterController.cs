@@ -48,21 +48,14 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
             return;
         }
 
-        int comboScore = 0;
-
         if (Input.GetKeyDown(KeyCode.A))
-            comboScore = _moveThePlayer.MoveCharacterLeft(_playerIndex);
+            _moveThePlayer.MoveCharacterLeft(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.D))
-            comboScore = _moveThePlayer.MoveCharacterRight(_playerIndex);
+            _moveThePlayer.MoveCharacterRight(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.W))
-            comboScore = _moveThePlayer.MoveCharacterUp(_playerIndex);
+            _moveThePlayer.MoveCharacterUp(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.S))
-            comboScore = _moveThePlayer.MoveCharacterDown(_playerIndex);
-
-        if (comboScore > 0)
-        {
-            ChangeScenario(comboScore);
-        }
+             _moveThePlayer.MoveCharacterDown(_playerIndex);
     }
 
     public void MovePlayerToCell(int row, int column)
@@ -92,12 +85,12 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 
     public void ChangeScenario(int value)
     {
-        //recibo el valor del objeto a instanciar
-        //recibo el player index de quién lo hizo
-
-        //tambien tengo que sincronizarlo a traves de la rpc
-        // photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, _value);
-        _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, value);
+        if (value == 0) return;
+        if (_mapPresenter.CheckValidSpawnCombo(value))
+        {
+            Vector2Int position = _mapPresenter.GetSpawnPosition(value);
+            _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, position.x, position.y, value);
+        }
 
     }
 
@@ -108,14 +101,13 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_PlayerCombo(int playerIndex, int value)
+    public void RPC_PlayerCombo(int playerIndex, int x, int y, int value)
     {
-        if (value == 0) return;
         //spriteRenderer
 
         // le digo donde instanciar
         //_scenarioController
 
-        _mapPresenter.SpawnObjectRandom(value);
+        _mapPresenter.SpawnObjectRandom(x, y, value);
     }
 }

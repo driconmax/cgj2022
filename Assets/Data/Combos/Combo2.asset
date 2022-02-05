@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 816bb09ba5010794188f07bba455075a, type: 3}
-  m_Name: ComboLarge
+  m_Name: Combo2
   m_EditorClassIdentifier: 
   name: Combo Arbol
   cardinals: 0000000003000000000000000300000002000000
