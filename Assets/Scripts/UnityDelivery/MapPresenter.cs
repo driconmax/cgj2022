@@ -14,6 +14,7 @@ public class MapPresenter
     private Dictionary<int, List<Cell>> _spawnedObjectsLevels = new Dictionary<int, List<Cell>>();
 
     private Cell _lastCell;
+    private List<Cell> _availableCells = new List<Cell>();
 
     public MapPresenter(MapView view, MapCreator mapCreator, List<SceneSpawnObject> sceneSpawnObjects)
     {
@@ -41,6 +42,8 @@ public class MapPresenter
 
                 var cellView = _view.CreateGround(cell.GetFloorType, cell.GetPosition());
                 cell.SetView(cellView);
+
+                _availableCells.Add(cell);
             }
         }
     }
@@ -96,12 +99,56 @@ public class MapPresenter
 
         _spawnedObjectsLevels[value].Add(cell);
 
+        RemoveAvailableArround(x,y);
+
         cell.SpawnAttachment(filteredSceneSpawnObjects[o]);
+    }
+
+    private void RemoveAvailableArround(int x, int y)
+    {
+
+        _availableCells.Remove(_map.grid[x][y]);
+        if (x - 1 >= 0)
+        {
+            if (_availableCells.Contains(_map.grid[x - 1][y])) _availableCells.Remove(_map.grid[x - 1][y]);
+            if (y - 1 >= 0)
+            {
+                if (_availableCells.Contains(_map.grid[x - 1][y - 1])) _availableCells.Remove(_map.grid[x - 1][y - 1]);
+            }
+            if (y + 1 < _map.grid[x - 1].Count)
+            {
+                if (_availableCells.Contains(_map.grid[x - 1][y + 1])) _availableCells.Remove(_map.grid[x - 1][y + 1]);
+            }
+        }
+        if (x + 1 < _map.grid.Count)
+        {
+            if (_availableCells.Contains(_map.grid[x + 1][y])) _availableCells.Remove(_map.grid[x + 1][y]);
+            if (y - 1 >= 0)
+            {
+                if (_availableCells.Contains(_map.grid[x + 1][y - 1])) _availableCells.Remove(_map.grid[x + 1][y - 1]);
+            }
+            if (y + 1 < _map.grid[x + 1].Count)
+            {
+                if (_availableCells.Contains(_map.grid[x + 1][y + 1])) _availableCells.Remove(_map.grid[x + 1][y + 1]);
+            }
+        }
+
+        if (y - 1 >= 0)
+        {
+            if (_availableCells.Contains(_map.grid[x][y - 1])) _availableCells.Remove(_map.grid[x][y - 1]);
+        }
+        if (y + 1 < _map.grid[x].Count)
+        {
+            if (_availableCells.Contains(_map.grid[x][y + 1])) _availableCells.Remove(_map.grid[x][y + 1]);
+        }
     }
 
     public bool CheckValidSpawnCombo(int value)
     {
-        if (value == 1 || (_spawnedObjectsLevels.ContainsKey(value - 1) && _spawnedObjectsLevels[value - 1].Count != 0)) return true;
+        if (
+            value == 1 ||
+            (_spawnedObjectsLevels.ContainsKey(value - 1) && _spawnedObjectsLevels[value - 1].Count != 0) ||
+            _availableCells.Count != 0) return true;
         return false;
     }
 
@@ -109,9 +156,9 @@ public class MapPresenter
     {
         if(value == 1)
         {
-            int x = UnityEngine.Random.Range(0, _map.grid.Count);
-            int y = UnityEngine.Random.Range(0, _map.grid[x].Count);
-            return new UnityEngine.Vector2Int(x, y);
+            
+            int r = UnityEngine.Random.Range(0, _availableCells.Count);
+            return _availableCells[r].GetIntPosition();
         }
 
         int o = UnityEngine.Random.Range(0, _spawnedObjectsLevels[value - 1].Count);
@@ -123,5 +170,12 @@ public class MapPresenter
         public SceneSpawnObject sceneSpawnObject;
         public UnityEngine.GameObject spawnObject;
         public UnityEngine.Vector2Int position;
+    }
+
+    struct BaseCell
+    {
+        public bool available;
+        public int row;
+        public int col;
     }
 }
