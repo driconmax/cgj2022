@@ -5,16 +5,16 @@ using System.Collections.Generic;
 public class InitializeMultiplayerGame : GameInitializer
 {
     readonly Installer _installer;
-    readonly MultiplayerConnector _multiplayerConector;
+    readonly MultiplayerService _multiplayerService;
     readonly Menu _menu;
     readonly MapView _mapView;
 
     string _skinName;
 
-    public InitializeMultiplayerGame(Installer installer, MultiplayerConnector multiplayerConnector, Menu menu, MapView mapView)
+    public InitializeMultiplayerGame(Installer installer, MultiplayerService multiplayerService, Menu menu, MapView mapView)
     {
         _installer = installer;
-        _multiplayerConector = multiplayerConnector;
+        _multiplayerService = multiplayerService;
         _mapView = mapView;
         _menu = menu;
 
@@ -22,47 +22,47 @@ public class InitializeMultiplayerGame : GameInitializer
 
     public void Start()
     {
-        _multiplayerConector.Execute();
+        _multiplayerService.Connect();
 
-        _multiplayerConector.OnConnectToServer(() => {
+        _multiplayerService.OnConnectToServer(() => {
             _menu.ShowButton();
         });
 
         _menu.SetUpButtonPlay((tuple) => {
 
-            if (_multiplayerConector.IsConnected)
+            if (_multiplayerService.IsConnected)
             {
                 var _nickname = tuple.Item1;
                 _skinName = tuple.Item2;
 
-                _multiplayerConector.SetPlayerNickname(_nickname);
-                _multiplayerConector.JoinRoom();
+                _multiplayerService.SetPlayerNickname(_nickname);
+                _multiplayerService.JoinRoom();
                 _menu.HideLobby();
                 _menu.ShowWaitingRoom(true);
             }
             else
             {
-                _multiplayerConector.Execute();
+                _multiplayerService.Connect();
             }
         });
 
-        _multiplayerConector.OnJoinedRoom(() => {
+        _multiplayerService.OnJoinedRoom(() => {
 
             _mapView.Initialize();
 
-            _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
+            _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
 
-            var playerIndex = _multiplayerConector.PlayerCount - 1;
+            var playerIndex = _multiplayerService.PlayerCount - 1;
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
 
-            var player = _multiplayerConector.InstanciatePlayer(initialPosition);
+            var player = _multiplayerService.InstanciatePlayer(initialPosition);
             player.Initialize(playerIndex, _skinName, _mapView.Presenter);
 
         });
 
-        _multiplayerConector.PlayerEnteredInARoom(() => {
+        _multiplayerService.PlayerEnteredInARoom( playerId => {
 
-            _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
+            _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
 
         });
     }

@@ -8,17 +8,14 @@ public class GameInstaller : MonoBehaviour, Installer
     [SerializeField] private MapView _mapView;
 
     private GameInitializer _gameInitializer;
-    private MultiplayerConnector _multiplayerConector;
 
-    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this, 
-                                                                    _multiplayerConector, 
+    private InitializeMultiplayerGame _Initialize => new InitializeMultiplayerGame(this,
+                                                                    _photonServer, 
                                                                     _menu,
                                                                     _mapView);
 
     private void Awake()
     {
-        _multiplayerConector = new ConnectToServer(_photonServer);
-
         _gameInitializer = _Initialize;
     }
 

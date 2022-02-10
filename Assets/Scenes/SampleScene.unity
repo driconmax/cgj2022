@@ -2462,8 +2462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7e30c50e67aa34b8ba21f37d40dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  photonServer: {fileID: 3252725634045749178}
-  menu: {fileID: 1404270872}
+  _photonServer: {fileID: 3252725634045749178}
+  _menu: {fileID: 1404270872}
+  _mapView: {fileID: 1144547592}
 --- !u!1 &5919225171883886860
 GameObject:
   m_ObjectHideFlags: 0
