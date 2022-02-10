@@ -22,8 +22,6 @@ public class MapPresenter
         _mapCreator = mapCreator;
         _sceneSpawnObjects = sceneSpawnObjects;
 
-        ServiceLocator.RegisterServices<MapPresenter>(this);
-
         _map = _mapCreator.Execute();
     }
 

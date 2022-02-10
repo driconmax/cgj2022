@@ -7,16 +7,17 @@ public class InitializeMultiplayerGame : GameInitializer
     readonly Installer _installer;
     readonly MultiplayerConnector _multiplayerConector;
     readonly Menu _menu;
-    readonly MapPresenter _mapPresenter;
+    readonly MapView _mapView;
 
     string _skinName;
 
-    public InitializeMultiplayerGame(Installer installer, MultiplayerConnector multiplayerConnector, Menu menu, MapPresenter mapPresenter)
+    public InitializeMultiplayerGame(Installer installer, MultiplayerConnector multiplayerConnector, Menu menu, MapView mapView)
     {
         _installer = installer;
         _multiplayerConector = multiplayerConnector;
-        _mapPresenter = mapPresenter;
+        _mapView = mapView;
         _menu = menu;
+
     }
 
     public void Start()
@@ -46,13 +47,16 @@ public class InitializeMultiplayerGame : GameInitializer
         });
 
         _multiplayerConector.OnJoinedRoom(() => {
+
+            _mapView.Initialize();
+
             _menu.ShowWaitingRoom(!_multiplayerConector.HasCounterPlayer);
 
             var playerIndex = _multiplayerConector.PlayerCount - 1;
-            var initialPosition = _mapPresenter.GetPlayerStartPosition(playerIndex);
+            var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
 
             var player = _multiplayerConector.InstanciatePlayer(initialPosition);
-            player.Initialize(_mapPresenter.GetPlayerMappedStartPosition(playerIndex), playerIndex, _skinName, _mapPresenter);
+            player.Initialize(playerIndex, _skinName, _mapView.Presenter);
 
         });
 

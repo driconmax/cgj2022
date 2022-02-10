@@ -9,17 +9,17 @@ public class MapView : MonoBehaviour
     [SerializeField] Transform groundParent;
     [SerializeField] Transform spawnObjectParent;
 
-    private MapPresenter _controller;
-    private MapPresenter Initialize => new MapPresenter(this, new CreateMap(mapper), sceneSpawnObjects);
+    private MapPresenter _presenter;
+    private MapPresenter Present => new MapPresenter(this, new CreateMap(mapper), sceneSpawnObjects);
 
-    private void Awake()
-    {
-        _controller = Initialize;
-    }
+    public MapPresenter Presenter => _presenter;
 
-    private void Start()
+    public void Initialize()
     {
-        _controller.Present();
+        _presenter = Present;
+        _presenter.Present();
+
+        gameObject.SetActive(true);
     }
 
     public CellView CreateGround(int type, Vector2 position)

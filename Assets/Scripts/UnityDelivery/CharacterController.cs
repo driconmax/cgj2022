@@ -29,12 +29,12 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         _characterRenderer = new CharacterRenderer(_animator);
     }
 
-    public void Initialize(Vector2Int characterPosition, int playerIndex, string skinName, MapPresenter mapPresenter)
+    public void Initialize(int playerIndex, string skinName, MapPresenter mapPresenter)
     {
         _map = mapPresenter.Map;
-        _characterPosition = characterPosition;
         _playerIndex = playerIndex;
         _mapPresenter = mapPresenter;
+        _characterPosition = mapPresenter.GetPlayerMappedStartPosition(playerIndex);
 
         _animator.skeleton.SetSkin(skinName);
 
