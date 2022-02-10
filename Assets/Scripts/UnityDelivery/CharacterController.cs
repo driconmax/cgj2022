@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
+using Photon.Realtime;
 
 public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 {
@@ -27,18 +28,26 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
+
+        ExitGames.Client.Photon.Hashtable hashtable = _photonView.Controller.CustomProperties;
+
+        Initialize((int)hashtable["PlayerIndex"], (String)hashtable["SkinName"]);
     }
 
-    public void Initialize(int playerIndex, string skinName, MapPresenter mapPresenter)
+    public void Initialize(int playerIndex, string skinName)
     {
-        _map = mapPresenter.Map;
         _playerIndex = playerIndex;
-        _mapPresenter = mapPresenter;
-        _characterPosition = mapPresenter.GetPlayerMappedStartPosition(playerIndex);
 
         _animator.skeleton.SetSkin(skinName);
 
         _moveThePlayer = _Initialize;
+    }
+
+    public void SetPresenter(MapPresenter mapPresenter)
+    {
+        _mapPresenter = mapPresenter;
+        _map = mapPresenter.Map;
+        _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(_playerIndex);
     }
 
     private void Update()
