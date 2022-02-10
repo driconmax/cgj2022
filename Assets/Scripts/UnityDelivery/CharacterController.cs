@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
-using Photon.Realtime;
 
 public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 {
@@ -28,26 +27,18 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
-
-        ExitGames.Client.Photon.Hashtable hashtable = _photonView.Controller.CustomProperties;
-
-        Initialize((int)hashtable["PlayerIndex"], (String)hashtable["SkinName"]);
     }
 
-    public void Initialize(int playerIndex, string skinName)
+    public void Initialize(int playerIndex, string skinName, MapPresenter mapPresenter)
     {
-        _playerIndex = playerIndex;
-
-        _animator.skeleton.SetSkin(skinName);
+        _map = mapPresenter.Map;
+        _mapPresenter = mapPresenter;
+        _characterPosition = mapPresenter.GetPlayerMappedStartPosition(playerIndex);
 
         _moveThePlayer = _Initialize;
-    }
 
-    public void SetPresenter(MapPresenter mapPresenter)
-    {
-        _mapPresenter = mapPresenter;
-        _map = mapPresenter.Map;
-        _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(_playerIndex);
+        _photonView.RPC(nameof(RPC_SetPlayerIndex), RpcTarget.AllBuffered, playerIndex);
+        _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinName);
     }
 
     private void Update()
@@ -104,9 +95,16 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_SetPlayerAvatar(int index)
+    public void RPC_SetPlayerIndex(int playerIndex)
+    {
+        _playerIndex = playerIndex;
+    }
+
+    [PunRPC]
+    public void RPC_SetPlayerAvatar(string skinName)
     {
         //spriteRenderer
+        _animator.skeleton.SetSkin(skinName);
     }
 
     [PunRPC]

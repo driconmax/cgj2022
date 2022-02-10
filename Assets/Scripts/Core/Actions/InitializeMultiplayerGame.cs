@@ -48,31 +48,19 @@ public class InitializeMultiplayerGame : GameInitializer
 
         _multiplayerService.OnJoinedRoom(() => {
 
-            _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
-
-        });
-
-        _multiplayerService.PlayerEnteredInARoom( player => {
-
             _mapView.Initialize();
+
+            _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
 
             var playerIndex = _multiplayerService.PlayerCount - 1;
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
-            //characterController.Initialize(playerIndex, _skinName, _mapView.Presenter);
-            //characterController.Initialize(player);
-            ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 
-            hashtable.Add("PlayerIndex", playerIndex);
-            hashtable.Add("SkinName", _skinName);
-            //hashtable.Add("PlayerIndex", playerIndex);
+            var player = _multiplayerService.InstanciatePlayer(initialPosition);
+            player.Initialize(playerIndex, _skinName, _mapView.Presenter);
 
-            player.SetCustomProperties(hashtable);
+        });
 
-            var characterController = _multiplayerService.InstanciatePlayer(initialPosition);
-
-            player.TagObject = characterController;
-
-            characterController.SetPresenter(_mapView.Presenter);
+        _multiplayerService.PlayerEnteredInARoom( playerId => {
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
 
