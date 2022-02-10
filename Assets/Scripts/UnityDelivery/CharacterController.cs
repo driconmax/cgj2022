@@ -27,18 +27,19 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
+        _mapPresenter = ServiceLocator.GetServices<MapPresenter>();
+        _map = _mapPresenter.Map;
+
     }
 
-    public void Initialize(int playerIndex, string skinName, MapPresenter mapPresenter)
+    public void Initialize(int playerIndex, string skinName)
     {
-        _map = mapPresenter.Map;
-        _mapPresenter = mapPresenter;
-        _characterPosition = mapPresenter.GetPlayerMappedStartPosition(playerIndex);
-
         _moveThePlayer = _Initialize;
 
         _photonView.RPC(nameof(RPC_SetPlayerIndex), RpcTarget.AllBuffered, playerIndex);
         _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinName);
+
+        _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(playerIndex);
     }
 
     private void Update()

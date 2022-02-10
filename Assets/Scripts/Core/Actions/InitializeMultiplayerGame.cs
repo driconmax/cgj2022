@@ -56,7 +56,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
 
             var player = _multiplayerService.InstanciatePlayer(initialPosition);
-            player.Initialize(playerIndex, _skinName, _mapView.Presenter);
+            player.Initialize(playerIndex, _skinName);
 
         });
 

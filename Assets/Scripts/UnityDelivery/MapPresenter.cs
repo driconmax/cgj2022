@@ -18,6 +18,8 @@ public class MapPresenter
 
     public MapPresenter(MapView view, MapCreator mapCreator, List<SceneSpawnObject> sceneSpawnObjects)
     {
+        ServiceLocator.RegisterServices(this);
+
         _view = view;
         _mapCreator = mapCreator;
         _sceneSpawnObjects = sceneSpawnObjects;
