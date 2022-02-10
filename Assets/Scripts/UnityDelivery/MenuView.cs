@@ -72,11 +72,11 @@ public class MenuView : MonoBehaviour, Menu
         lobby.SetActive(false);
     }
 
-    public void SetUpButtonPlay(Action<(string, string)> EnterGame)
+    public void SetUpButtonPlay(Action<(string, int)> EnterGame)
     {
         play.onClick.AddListener(() =>
         {
-            EnterGame((nickname.text, _skins[_index].Name));
+            EnterGame((nickname.text, _index));
         });
     }
 

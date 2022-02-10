@@ -24,20 +24,24 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     private int _playerIndex;
     private CellView _lastCell;
 
+    private Spine.Skin[] _skins;
+
     private void Awake()
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _mapPresenter = ServiceLocator.GetServices<MapPresenter>();
         _map = _mapPresenter.Map;
 
+        _skins = _animator.Skeleton.Data.Skins.Items;
+
     }
 
-    public void Initialize(int playerIndex, string skinName)
+    public void Initialize(int playerIndex, int skinIndex)
     {
         _playerIndex = playerIndex;
         _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(_playerIndex);
 
-        _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinName);
+        _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinIndex);
 
         _moveThePlayer = _Initialize;
     }
@@ -102,10 +106,12 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_SetPlayerAvatar(string skinName)
+    public void RPC_SetPlayerAvatar(int index)
     {
         //spriteRenderer
-        _animator.skeleton.SetSkin(skinName);
+        _animator.Skeleton.SetSkin(_skins[index]);
+        _animator.Skeleton.SetToSetupPose();
+        _animator.Skeleton.SetSlotsToSetupPose();
     }
 
     [PunRPC]

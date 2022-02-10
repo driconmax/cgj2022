@@ -9,7 +9,7 @@ public class InitializeMultiplayerGame : GameInitializer
     readonly Menu _menu;
     readonly MapView _mapView;
 
-    string _skinName;
+    int _skinIndex;
 
     public InitializeMultiplayerGame(Installer installer, MultiplayerService multiplayerService, Menu menu, MapView mapView)
     {
@@ -33,7 +33,7 @@ public class InitializeMultiplayerGame : GameInitializer
             if (_multiplayerService.IsConnected)
             {
                 var _nickname = tuple.Item1;
-                _skinName = tuple.Item2;
+                _skinIndex = tuple.Item2;
 
                 _multiplayerService.SetPlayerNickname(_nickname);
                 _multiplayerService.JoinRoom();
@@ -56,7 +56,7 @@ public class InitializeMultiplayerGame : GameInitializer
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
 
             var player = _multiplayerService.InstanciatePlayer(initialPosition);
-            player.Initialize(playerIndex, _skinName);
+            player.Initialize(playerIndex, _skinIndex);
 
         });
 
