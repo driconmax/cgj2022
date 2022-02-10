@@ -36,10 +36,11 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     {
         _moveThePlayer = _Initialize;
 
-        _photonView.RPC(nameof(RPC_SetPlayerIndex), RpcTarget.AllBuffered, playerIndex);
+        _playerIndex = playerIndex;
+        _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(_playerIndex);
+
         _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinName);
 
-        _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(playerIndex);
     }
 
     private void Update()
