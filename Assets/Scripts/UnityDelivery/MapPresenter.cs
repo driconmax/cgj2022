@@ -41,6 +41,9 @@ public class MapPresenter
                 Cell cell = map.grid[column][row];
 
                 var cellView = _view.CreateGround(cell.GetFloorType, cell.GetPosition());
+                // TODO: Cambiar el 4 por el numero de Sprites para el piso de forma dinamica
+                int sample = (int)((Noise.Sum(Noise.methods[1][1], cell.GetPosition(), 0.2f, 1, 2f, 0.5f) * 0.5f + 0.5f) * 4f);
+                cellView.SetFloor(sample);
                 cell.SetView(cellView);
 
                 _availableCells.Add(cell);

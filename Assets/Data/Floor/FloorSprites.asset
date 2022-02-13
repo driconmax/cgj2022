@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca950ea26ad9d234a95ec9ce0735fb60, type: 3}
+  m_Name: FloorSprites
+  m_EditorClassIdentifier: 
+  test: 2
+  sprites:
+  - {fileID: 21300000, guid: 32529b3493eda1f46b77b2b56a5e0be1, type: 3}
+  - {fileID: 21300000, guid: 4225b3f1124e08f448c491f07a3c0333, type: 3}
+  - {fileID: 21300000, guid: dd5650ed4ec12f741a3c2fad6d9637a5, type: 3}
+  - {fileID: 21300000, guid: bb62138796024cf4e9076c72d9f837b9, type: 3}
+  - {fileID: 21300000, guid: 883f57516d17a7c4cbb13b225185d8ee, type: 3}

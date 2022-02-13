@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CellView : MonoBehaviour
 {
-    [SerializeField] List<Sprite> possibleSprites;
+    [SerializeField] FloorLevel floorLevel;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject buttonUp;
     [SerializeField] AudioSource audioSource;
@@ -16,6 +16,8 @@ public class CellView : MonoBehaviour
     [SerializeField] Transform button;
     [SerializeField] Transform attachment;
 
+    private int floorIndex = 0;
+
     private GameObject _currentAttachment;
     private Dictionary<SceneSpawnObject, GameObject> _attachments;
 
@@ -24,8 +26,19 @@ public class CellView : MonoBehaviour
     private void Awake()
     {
         _attachments = new Dictionary<SceneSpawnObject,GameObject>();
-        possibleSprites.Shuffle();        
-        possibleSprites.First(sprite => spriteRenderer.sprite = sprite);
+        spriteRenderer.sprite = floorLevel.floorSprites[0].sprites[0];
+        //possibleSprites.Shuffle();        
+        //possibleSprites.First(sprite => spriteRenderer.sprite = sprite);
+    }
+
+    public void SetFloor(int index)
+    {
+        if (floorLevel.floorSprites.Count > index)
+        {
+            floorIndex = index;
+            int rand = Random.Range(0, floorLevel.floorSprites[index].sprites.Count);
+            spriteRenderer.sprite = floorLevel.floorSprites[index].sprites[rand];
+        }
     }
 
     public CellView ChangeStatus(bool status)

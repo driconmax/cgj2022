@@ -297,23 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4f5453b74384e468c43ef7ae875cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleSprites:
-  - {fileID: 21300000, guid: f00b3a52491b3574ab36a6557ea11dc8, type: 3}
-  - {fileID: 21300000, guid: f3c79b543ed045848937d8e37adf15cb, type: 3}
-  - {fileID: 21300000, guid: 8184cf74e1a7cac4c83c1b28a62b4c48, type: 3}
-  - {fileID: 21300000, guid: 481fca5b70e38ee45b14d403de733854, type: 3}
-  - {fileID: 21300000, guid: 759e64dfa186b524ab12579f30fa82ee, type: 3}
-  - {fileID: 21300000, guid: ad4fd772d0d9c034a8242dae7f114feb, type: 3}
-  - {fileID: 21300000, guid: 883f57516d17a7c4cbb13b225185d8ee, type: 3}
-  - {fileID: 21300000, guid: bb62138796024cf4e9076c72d9f837b9, type: 3}
-  - {fileID: 21300000, guid: dd5650ed4ec12f741a3c2fad6d9637a5, type: 3}
-  - {fileID: 21300000, guid: 4225b3f1124e08f448c491f07a3c0333, type: 3}
-  - {fileID: 21300000, guid: 32529b3493eda1f46b77b2b56a5e0be1, type: 3}
-  - {fileID: 21300000, guid: bccd44147e081ae4f97fca1033110bbf, type: 3}
-  - {fileID: 21300000, guid: 7f792ee604069664a914a3befb58fe50, type: 3}
-  - {fileID: 21300000, guid: 4bbd31660c498194fb5f76a89158191c, type: 3}
-  - {fileID: 21300000, guid: 815723418de9a9447b948f39b0de8afe, type: 3}
-  - {fileID: 21300000, guid: 90825c9be95357344afbeab71a21ab83, type: 3}
+  floorLevel: {fileID: 11400000, guid: 4399a7ae5e387c2458dbfcc51fb48c0b, type: 2}
   spriteRenderer: {fileID: 6392120941989466045}
   buttonUp: {fileID: 960824628463152745}
   audioSource: {fileID: 7830321200941472364}
