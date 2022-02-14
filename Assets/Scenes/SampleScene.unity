@@ -1157,6 +1157,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9d20ea186392114ab114ea02487867b, type: 2}
   groundParent: {fileID: 1939819616}
   spawnObjectParent: {fileID: 1059736122}
+  speed: 8.34
 --- !u!222 &1144547593
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -300,14 +300,14 @@ public static class Noise {
 			tz);
 	}
 
-	public static float Sum(NoiseMethod method, Vector2 point, float frequency, int octaves, float lacunarity, float persistence)
+	public static float Sum(NoiseMethod method, Vector2 point, float frequency, int octaves, float lacunarity, float persistence, float offset = 0)
 	{
-		return Sum(method, new Vector3(point.x, point.y, 0), frequency, octaves, lacunarity, persistence, Random.Range(0, 1000));
+		return Sum(method, new Vector3(point.x, point.y, 0), frequency, octaves, lacunarity, persistence, offset);
 	}
 
-	public static float Sum (NoiseMethod method, Vector3 point, float frequency, int octaves, float lacunarity, float persistence, int seed = 0) {
+	public static float Sum (NoiseMethod method, Vector3 point, float frequency, int octaves, float lacunarity, float persistence, float offset) {
 		//Random.InitState(seed);
-		Vector3 displacement = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f), Random.Range(-100f, 100f));
+		Vector3 displacement = new Vector3(offset, 0, 0);
 		float sum = method(point + displacement, frequency);
 		float amplitude = 1f;
 		float range = 1f;

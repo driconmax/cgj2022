@@ -37,7 +37,7 @@ public class CellView : MonoBehaviour
         {
             floorIndex = index;
             int rand = Random.Range(0, floorLevel.floorSprites[index].sprites.Count);
-            spriteRenderer.sprite = floorLevel.floorSprites[index].sprites[rand];
+            spriteRenderer.sprite = floorLevel.floorSprites[index].sprites[0];
         }
     }
 

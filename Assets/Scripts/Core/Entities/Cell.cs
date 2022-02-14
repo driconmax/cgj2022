@@ -14,6 +14,9 @@ public class Cell
     public AttachmentTypes GetAttachmentType => _attachmentType;
 
     private CellView _view;
+    public CellView GetView => _view;
+
+
     private int _index;
     private int _row;
     private int _column;
@@ -51,8 +54,6 @@ public class Cell
         _status = status;
         _view.ChangeStatus(status);
     }
-
-
     public void SpawnAttachment(SceneSpawnObject sceneSpawnObject)
     {
         _attachmentType = AttachmentTypes.TREE;
