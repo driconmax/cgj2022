@@ -10,7 +10,6 @@ public class MapPresenter
     public Map Map => _map;
 
     private List<SceneSpawnObject> _sceneSpawnObjects;
-    private List<SpawnedSceneSpawnObject> _spawnedObjects = new List<SpawnedSceneSpawnObject>();
     private Dictionary<int, List<Cell>> _spawnedObjectsLevels = new Dictionary<int, List<Cell>>();
 
     private Cell _lastCell;
@@ -81,39 +80,46 @@ public class MapPresenter
         _lastCell = gridCell;
     }
 
-    public void SpawnObjectRandom(int x, int y, int value)
+    public void SpawnObject(int x, int y, int comboValue)
     {
-
-        List<SceneSpawnObject> filteredSceneSpawnObjects = _sceneSpawnObjects.Where(obj => obj.value == value).ToList();
+        List<SceneSpawnObject> filteredSceneSpawnObjects = _sceneSpawnObjects.Where(obj => obj.value == comboValue).ToList();
 
         int o = UnityEngine.Random.Range(0, filteredSceneSpawnObjects.Count);
 
         Cell cell = _map.grid[x][y];
 
-        if (value != 1)
+        if (comboValue != 1)
         {
-            _spawnedObjectsLevels[value - 1].Remove(cell);
+            _spawnedObjectsLevels[comboValue - 1].Remove(cell);
         }
 
-        if (!_spawnedObjectsLevels.ContainsKey(value))
+        if (!_spawnedObjectsLevels.ContainsKey(comboValue))
         {
-            _spawnedObjectsLevels.Add(value, new List<Cell>());
+            _spawnedObjectsLevels.Add(comboValue, new List<Cell>());
         }
 
-        _spawnedObjectsLevels[value].Add(cell);
+        _spawnedObjectsLevels[comboValue].Add(cell);
 
         RemoveAvailableArround(x,y);
 
         cell.SpawnAttachment(filteredSceneSpawnObjects[o]);
     }
 
+    public void DamageCell(int x, int y, int comboValue)
+    {
+        Cell cell = _map.grid[x][y];
+
+        cell.Damage();
+    }
+
     private void RemoveAvailableArround(int x, int y)
     {
-
         _availableCells.Remove(_map.grid[x][y]);
+
         if (x - 1 >= 0)
         {
             if (_availableCells.Contains(_map.grid[x - 1][y])) _availableCells.Remove(_map.grid[x - 1][y]);
+
             if (y - 1 >= 0)
             {
                 if (_availableCells.Contains(_map.grid[x - 1][y - 1])) _availableCells.Remove(_map.grid[x - 1][y - 1]);
@@ -123,9 +129,11 @@ public class MapPresenter
                 if (_availableCells.Contains(_map.grid[x - 1][y + 1])) _availableCells.Remove(_map.grid[x - 1][y + 1]);
             }
         }
+
         if (x + 1 < _map.grid.Count)
         {
             if (_availableCells.Contains(_map.grid[x + 1][y])) _availableCells.Remove(_map.grid[x + 1][y]);
+
             if (y - 1 >= 0)
             {
                 if (_availableCells.Contains(_map.grid[x + 1][y - 1])) _availableCells.Remove(_map.grid[x + 1][y - 1]);
@@ -136,10 +144,11 @@ public class MapPresenter
             }
         }
 
-        if (y - 1 >= 0)
+        if (y - 1 >= 0) 
         {
             if (_availableCells.Contains(_map.grid[x][y - 1])) _availableCells.Remove(_map.grid[x][y - 1]);
         }
+
         if (y + 1 < _map.grid[x].Count)
         {
             if (_availableCells.Contains(_map.grid[x][y + 1])) _availableCells.Remove(_map.grid[x][y + 1]);

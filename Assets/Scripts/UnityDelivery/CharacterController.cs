@@ -60,7 +60,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         else if (Input.GetKeyDown(KeyCode.W))
             _moveThePlayer.MoveCharacterUp(_playerIndex);
         else if (Input.GetKeyDown(KeyCode.S))
-             _moveThePlayer.MoveCharacterDown(_playerIndex);
+            _moveThePlayer.MoveCharacterDown(_playerIndex);
     }
 
     public void MovePlayerToCell(int row, int column)
@@ -108,7 +108,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [PunRPC]
     public void RPC_SetPlayerAvatar(int index)
     {
-        //spriteRenderer
         _animator.Skeleton.SetSkin(_skins[index]);
         _animator.Skeleton.SetToSetupPose();
         _animator.Skeleton.SetSlotsToSetupPose();
@@ -117,11 +116,13 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [PunRPC]
     public void RPC_PlayerCombo(int playerIndex, int x, int y, int value)
     {
-        //spriteRenderer
-
-        // le digo donde instanciar
-        //_scenarioController
-
-        _mapPresenter.SpawnObjectRandom(x, y, value);
+        if (_photonView.IsMine)
+        {
+            _mapPresenter.SpawnObject(x, y, value);
+        }
+        else
+        {
+            _mapPresenter.DamageCell(x, y, value);
+        }
     }
 }

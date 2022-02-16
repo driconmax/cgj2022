@@ -27,8 +27,6 @@ public class CellView : MonoBehaviour
     {
         _attachments = new Dictionary<SceneSpawnObject,GameObject>();
         spriteRenderer.sprite = floorLevel.floorSprites[0].sprites[0];
-        //possibleSprites.Shuffle();        
-        //possibleSprites.First(sprite => spriteRenderer.sprite = sprite);
     }
 
     public void SetFloor(int index)
@@ -72,6 +70,11 @@ public class CellView : MonoBehaviour
             _attachments.Add(sceneSpawnObject, instance);
             _currentAttachment = instance;
         }
+    }
+
+    public void Sarasa()
+    {
+        _currentAttachment.SetActive(false);
     }
 
 }

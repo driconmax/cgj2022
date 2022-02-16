@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbcc701acf618843bd4837281248acf, type: 3}
   m_Name: Mapper
   m_EditorClassIdentifier: 
-  Rows: 10
-  Colums: 10
+  Rows: 6
+  Colums: 6
   CellSize: {x: 0.5, y: 0.5}
   MapStartPosition: {x: -4.5, y: 0}
   PlayerStartPosition: {x: 0, y: 0}
-  EnemyStartPosition: {x: 9, y: 9}
+  EnemyStartPosition: {x: 5, y: 5}

@@ -16,7 +16,6 @@ public class Cell
     private CellView _view;
     public CellView GetView => _view;
 
-
     private int _index;
     private int _row;
     private int _column;
@@ -54,6 +53,7 @@ public class Cell
         _status = status;
         _view.ChangeStatus(status);
     }
+
     public void SpawnAttachment(SceneSpawnObject sceneSpawnObject)
     {
         _attachmentType = AttachmentTypes.TREE;
@@ -61,8 +61,13 @@ public class Cell
         _view.SpawnAttachment(sceneSpawnObject);
     }
 
-    internal Vector2Int GetIntPosition()
+    public Vector2Int GetIntPosition()
     {
         return new Vector2Int(_column, _row);
+    }
+
+    public void Damage()
+    {
+        _view.Sarasa();
     }
 }

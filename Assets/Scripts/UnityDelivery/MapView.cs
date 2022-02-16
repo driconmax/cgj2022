@@ -27,22 +27,22 @@ public class MapView : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void LateUpdate()
-    {
+    //private void LateUpdate()
+    //{
 
-        for (var column = 0; column < _presenter.Map.grid.Count; column++)
-        {
-            for (var row = 0; row < _presenter.Map.grid[column].Count; row++)
-            {
-                Cell cell = _presenter.Map.grid[column][row];
+    //    for (var column = 0; column < _presenter.Map.grid.Count; column++)
+    //    {
+    //        for (var row = 0; row < _presenter.Map.grid[column].Count; row++)
+    //        {
+    //            Cell cell = _presenter.Map.grid[column][row];
 
-                int sample = (int)((Noise.Sum(Noise.methods[1][1], cell.GetPosition(), 0.2f, 1, 2f, 0.5f, offset) * 0.5f + 0.5f) * 4f);
-                cell.GetView.SetFloor(sample);
-            }
-        }
+    //            int sample = (int)((Noise.Sum(Noise.methods[1][1], cell.GetPosition(), 0.2f, 1, 2f, 0.5f, offset) * 0.5f + 0.5f) * 4f);
+    //            cell.GetView.SetFloor(sample);
+    //        }
+    //    }
 
-        offset += speed * Time.deltaTime;
-    }
+    //    offset += speed * Time.deltaTime;
+    //}
 
     public CellView CreateGround(int type, Vector2 position)
     {
