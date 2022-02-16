@@ -116,7 +116,12 @@ public class MapPresenter
 
     private void RemoveAvailableArround(int x, int y, bool inside)
     {
-        if(inside) _availableCells.Remove(_map.grid[x][y]);
+        _availableCells.Remove(_map.grid[x][y]);
+        if (!inside)
+        {
+            _availableCells.Add(_map.grid[x][y]);
+        }
+            
 
         if (x - 1 >= 0)
         {
