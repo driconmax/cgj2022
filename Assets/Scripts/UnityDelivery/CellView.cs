@@ -72,7 +72,7 @@ public class CellView : MonoBehaviour
         }
     }
 
-    public void Sarasa()
+    public void Damage()
     {
         if (_currentAttachment != null)
         {

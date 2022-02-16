@@ -70,6 +70,6 @@ public class Cell
     public void Damage()
     {
         _attachmentType = AttachmentTypes.DAMAGED;
-        _view.Sarasa();
+        _view.Damage();
     }
 }
