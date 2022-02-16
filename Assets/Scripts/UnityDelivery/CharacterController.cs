@@ -42,6 +42,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         _characterPosition = _mapPresenter.GetPlayerMappedStartPosition(_playerIndex);
 
         _photonView.RPC(nameof(RPC_SetPlayerAvatar), RpcTarget.AllBuffered, skinIndex);
+        _photonView.RPC(nameof(RPC_SetPlayerIndex), RpcTarget.AllBuffered, _playerIndex);
 
         _moveThePlayer = _Initialize;
     }
@@ -88,13 +89,14 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
         }
     }
 
-    public void ChangeScenario(int value)
+    public void ChangeScenario(int comboValue)
     {
-        if (value == 0) return;
-        if (_mapPresenter.CheckValidSpawnCombo(value))
+        if (comboValue == 0) return;
+        if (_mapPresenter.CheckValidSpawnCombo(comboValue))
         {
-            Vector2Int position = _mapPresenter.GetSpawnPosition(value);
-            _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.AllBuffered, _playerIndex, position.x, position.y, value);
+            Vector2Int position = _mapPresenter.GetSpawnPosition(comboValue);
+            _mapPresenter.SpawnObject(position.x, position.y, comboValue);
+            _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.Others, position.x, position.y, comboValue);
         }
 
     }
@@ -114,15 +116,9 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_PlayerCombo(int playerIndex, int x, int y, int value)
+    public void RPC_PlayerCombo(int x, int y, int value)
     {
-        if (_photonView.IsMine)
-        {
-            _mapPresenter.SpawnObject(x, y, value);
-        }
-        else
-        {
+        
             _mapPresenter.DamageCell(x, y, value);
-        }
     }
 }
