@@ -74,7 +74,14 @@ public class CellView : MonoBehaviour
 
     public void Sarasa()
     {
-        _currentAttachment.SetActive(false);
+        if (_currentAttachment != null)
+        {
+            _currentAttachment.SetActive(false);
+        }
+        else
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 
 }

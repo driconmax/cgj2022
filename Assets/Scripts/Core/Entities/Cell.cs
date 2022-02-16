@@ -7,7 +7,8 @@ public class Cell
     {
         CLEAR,
         BUTTON,
-        TREE
+        TREE,
+        DAMAGED
     }
 
     public int GetFloorType => _floorType;
@@ -68,6 +69,7 @@ public class Cell
 
     public void Damage()
     {
+        _attachmentType = AttachmentTypes.DAMAGED;
         _view.Sarasa();
     }
 }
