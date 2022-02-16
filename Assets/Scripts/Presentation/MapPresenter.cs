@@ -100,7 +100,7 @@ public class MapPresenter
 
         _spawnedObjectsLevels[comboValue].Add(cell);
 
-        RemoveAvailableArround(x,y);
+        RemoveAvailableArround(x, y, true);
 
         cell.SpawnAttachment(filteredSceneSpawnObjects[o]);
     }
@@ -109,12 +109,14 @@ public class MapPresenter
     {
         Cell cell = _map.grid[x][y];
 
+        RemoveAvailableArround(x, y, false);
+
         cell.Damage();
     }
 
-    private void RemoveAvailableArround(int x, int y)
+    private void RemoveAvailableArround(int x, int y, bool inside)
     {
-        _availableCells.Remove(_map.grid[x][y]);
+        if(inside) _availableCells.Remove(_map.grid[x][y]);
 
         if (x - 1 >= 0)
         {
