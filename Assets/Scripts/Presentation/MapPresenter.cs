@@ -53,8 +53,8 @@ public class MapPresenter
     public UnityEngine.Vector2 GetPlayerStartPosition(int playerIndex)
     {
         UnityEngine.Vector2Int position = _mapCreator.GetPlayerStartPosition;
-        
-        if ((playerIndex % 2) == 1) 
+
+        if ((playerIndex % 2) == 1)
         {
             position = _mapCreator.GetEnemyStartPosition;
         }
@@ -121,7 +121,7 @@ public class MapPresenter
         {
             _availableCells.Add(_map.grid[x][y]);
         }
-            
+
 
         if (x - 1 >= 0)
         {
@@ -151,7 +151,7 @@ public class MapPresenter
             }
         }
 
-        if (y - 1 >= 0) 
+        if (y - 1 >= 0)
         {
             if (_availableCells.Contains(_map.grid[x][y - 1])) _availableCells.Remove(_map.grid[x][y - 1]);
         }
@@ -162,20 +162,20 @@ public class MapPresenter
         }
     }
 
-    public bool CheckValidSpawnCombo(int value)
+    public bool CheckValidSpawnCombo(int comboValue)
     {
-        if (
-            value == 1 ||
-            (_spawnedObjectsLevels.ContainsKey(value - 1) && _spawnedObjectsLevels[value - 1].Count != 0) ||
-            _availableCells.Count != 0) return true;
-        return false;
+        if (comboValue == 1)
+        {
+           return _availableCells.Count > 0;
+        }
+
+        return (_spawnedObjectsLevels.ContainsKey(comboValue - 1) && _spawnedObjectsLevels[comboValue - 1].Count != 0);
     }
 
     public UnityEngine.Vector2Int GetSpawnPosition(int value)
     {
         if(value == 1)
         {
-            
             int r = UnityEngine.Random.Range(0, _availableCells.Count);
             return _availableCells[r].GetIntPosition();
         }
