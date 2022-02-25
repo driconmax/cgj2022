@@ -51,6 +51,7 @@ public class InitializeMultiplayerGame : GameInitializer
             _mapView.Initialize();
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
+            _menu.ShowGameHud(_multiplayerService.HasCounterPlayer);
 
             var playerIndex = _multiplayerService.PlayerCount - 1;
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
@@ -63,7 +64,7 @@ public class InitializeMultiplayerGame : GameInitializer
         _multiplayerService.PlayerEnteredInARoom( playerId => {
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
-            _menu.ShowGameHud(!_multiplayerService.HasCounterPlayer);
+            _menu.ShowGameHud(_multiplayerService.HasCounterPlayer);
 
         });
     }
