@@ -34,6 +34,7 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     {
         _characterRenderer = new CharacterRenderer(_animator);
         _mapPresenter = ServiceLocator.GetServices<MapPresenter>();
+        OnPlayerCombo += ServiceLocator.GetServices<HudView>().OnNatureChange;
         _map = _mapPresenter.Map;
 
         _skins = _animator.Skeleton.Data.Skins.Items;

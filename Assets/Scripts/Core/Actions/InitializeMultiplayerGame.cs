@@ -61,8 +61,6 @@ public class InitializeMultiplayerGame : GameInitializer
             _hudView.SetLocalPlayerIndex(playerIndex);
             player.Initialize(playerIndex, _skinIndex);
 
-            player.OnPlayerCombo += _hudView.OnNatureChange;
-
         });
 
         _multiplayerService.PlayerEnteredInARoom( playerId => {

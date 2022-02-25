@@ -10,6 +10,11 @@ public class HudView : MonoBehaviour
     private int _localPlayerIndex;
     private Dictionary<int, int> _playerScores = new Dictionary<int, int>();
 
+    private void Start()
+    {
+        ServiceLocator.RegisterServices(this);
+    }
+
     public int SetLocalPlayerIndex(int value) => _localPlayerIndex = value;
 
     public void OnNatureChange(int playerIndex, int comboLevel)
