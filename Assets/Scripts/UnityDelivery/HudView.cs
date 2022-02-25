@@ -14,6 +14,7 @@ public class HudView : MonoBehaviour
 
     public void OnNatureChange(int playerIndex, int comboLevel)
     {
+        if(!_playerScores.ContainsKey(playerIndex)) _playerScores.Add(playerIndex, 0);
         _playerScores[playerIndex] += comboLevel;
 
         UpdateUI();

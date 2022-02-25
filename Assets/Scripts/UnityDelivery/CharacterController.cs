@@ -126,6 +126,6 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     {
         _mapPresenter.DamageCell(x, y, value);
 
-        OnPlayerCombo.Invoke(_playerIndex, value);
+        OnPlayerCombo?.Invoke(_playerIndex, value);
     }
 }
