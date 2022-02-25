@@ -8,16 +8,17 @@ public class InitializeMultiplayerGame : GameInitializer
     readonly MultiplayerService _multiplayerService;
     readonly Menu _menu;
     readonly MapView _mapView;
+    readonly HudView _hudView;
 
     int _skinIndex;
 
-    public InitializeMultiplayerGame(Installer installer, MultiplayerService multiplayerService, Menu menu, MapView mapView)
+    public InitializeMultiplayerGame(Installer installer, MultiplayerService multiplayerService, Menu menu, MapView mapView, HudView hudView)
     {
         _installer = installer;
         _multiplayerService = multiplayerService;
         _mapView = mapView;
+        _hudView = hudView;
         _menu = menu;
-
     }
 
     public void Start()
@@ -51,20 +52,23 @@ public class InitializeMultiplayerGame : GameInitializer
             _mapView.Initialize();
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
-            _menu.ShowGameHud(_multiplayerService.HasCounterPlayer);
+            _hudView.ToggleGameHud(_multiplayerService.HasCounterPlayer);
 
             var playerIndex = _multiplayerService.PlayerCount - 1;
             var initialPosition = _mapView.Presenter.GetPlayerStartPosition(playerIndex);
 
             var player = _multiplayerService.InstanciatePlayer(initialPosition);
+            _hudView.SetLocalPlayerIndex(playerIndex);
             player.Initialize(playerIndex, _skinIndex);
+
+            player.OnPlayerCombo += _hudView.OnNatureChange;
 
         });
 
         _multiplayerService.PlayerEnteredInARoom( playerId => {
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
-            _menu.ShowGameHud(_multiplayerService.HasCounterPlayer);
+            _hudView.ToggleGameHud(_multiplayerService.HasCounterPlayer);
 
         });
     }

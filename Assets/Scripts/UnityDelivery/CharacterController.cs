@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 
+public delegate void CustomEvent(int playerIndex, int comboLevel);
+
 public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
 {
     public static string CharacterPrefabName = "Character";
+
+    public event CustomEvent OnPlayerCombo;
 
     [SerializeField] private PhotonView _photonView = null;
     [SerializeField] private SkeletonAnimation _animator = null;
@@ -97,6 +101,8 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
             Vector2Int position = _mapPresenter.GetSpawnPosition(comboValue);
             _mapPresenter.SpawnObject(position.x, position.y, comboValue);
             _photonView.RPC(nameof(RPC_PlayerCombo), RpcTarget.Others, position.x, position.y, comboValue);
+
+            OnPlayerCombo.Invoke(_playerIndex, comboValue);
         }
 
     }
@@ -118,7 +124,8 @@ public class CharacterController : MonoBehaviour, ICharacterView, IPunObservable
     [PunRPC]
     public void RPC_PlayerCombo(int x, int y, int value)
     {
-        
-            _mapPresenter.DamageCell(x, y, value);
+        _mapPresenter.DamageCell(x, y, value);
+
+        OnPlayerCombo.Invoke(_playerIndex, value);
     }
 }
