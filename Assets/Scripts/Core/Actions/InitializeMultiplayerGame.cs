@@ -63,6 +63,7 @@ public class InitializeMultiplayerGame : GameInitializer
         _multiplayerService.PlayerEnteredInARoom( playerId => {
 
             _menu.ShowWaitingRoom(!_multiplayerService.HasCounterPlayer);
+            _menu.ShowGameHud(!_multiplayerService.HasCounterPlayer);
 
         });
     }

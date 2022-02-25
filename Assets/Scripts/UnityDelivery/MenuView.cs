@@ -10,6 +10,7 @@ public class MenuView : MonoBehaviour, Menu
     [SerializeField] TMP_InputField nickname;
     [SerializeField] GameObject lobby;
     [SerializeField] GameObject waitingRoom;
+    [SerializeField] GameObject gameHud;
     [SerializeField] Button next;
     [SerializeField] Button previous;
     [SerializeField] SkeletonGraphic animator;
@@ -83,6 +84,11 @@ public class MenuView : MonoBehaviour, Menu
     public void ShowWaitingRoom(bool activate)
     {
         waitingRoom.SetActive(activate);
+    }
+
+    public void ShowGameHud(bool activate)
+    {
+        gameHud.SetActive(activate);
     }
 
     public void ShowButton()

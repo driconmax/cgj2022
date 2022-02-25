@@ -6,5 +6,6 @@ public interface Menu
     void HideLobby();
     void ShowButton();
     void ShowWaitingRoom(bool activate);
+    void ShowGameHud(bool activate);
     void SetUpButtonPlay(Action<(string, int)> EnterGame);
 }
